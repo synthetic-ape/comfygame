@@ -1,0 +1,8 @@
+__pycache__/
+*.pyc
+games/
+smoke-out/
+config.local.json
+.venv/
+node_modules/
+*.log
