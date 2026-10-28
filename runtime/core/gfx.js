@@ -52,9 +52,8 @@ CG.Gfx = class Gfx {
     this.display.style.width = ww + "px";
     this.display.style.height = wh + "px";
     const fit = Math.min(this.display.width / this.W, this.display.height / this.H);
-    // Integer scaling keeps pixels square; fall back to fractional on small screens.
-    this.scale = fit >= 2 ? Math.floor(fit) : fit;
-    if (fit - this.scale > 0.75 * this.scale) this.scale = fit; // avoid huge borders on odd sizes
+    // Integer scaling keeps pixels perfectly square; use it unless it would waste more than ~12% of the screen.
+    this.scale = fit >= 2 && (fit - Math.floor(fit)) / fit < 0.12 ? Math.floor(fit) : fit;
     this.ox = Math.floor((this.display.width - this.W * this.scale) / 2);
     this.oy = Math.floor((this.display.height - this.H * this.scale) / 2);
     this.dctx.imageSmoothingEnabled = false;

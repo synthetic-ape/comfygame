@@ -27,6 +27,7 @@ CG.Game = class Game {
     this.toast = null;
     this.saveKey = "cg.save." + (this.spec.id || this.spec.title);
     this.best = CG.store.get(this.saveKey, { hiscore: 0, reached: 0 });
+    this.weather = this.spec.style.weather === false ? null : new CG.Weather((this.spec.meta && this.spec.meta.theme) || "forest", this.W, this.H);
     this.genre = CG.genres[this.spec.genre];
     if (!this.genre) throw new Error(`Unknown genre "${this.spec.genre}"`);
   }
@@ -46,7 +47,11 @@ CG.Game = class Game {
       layers.forEach((L, i) => jobs.push(CG.Gfx.loadImage(L.src).then((img) => { if (img) this.backgrounds[key][i] = Object.assign({}, L, { img }); })));
     }
     if (A.tiles && A.tiles.src) {
-      jobs.push(CG.Gfx.loadImage(A.tiles.src).then((img) => { if (img) this.tiles = Object.assign({}, A.tiles, { img }); }));
+      jobs.push(CG.Gfx.loadImage(A.tiles.src).then(async (img) => {
+        if (!img) return;
+        this.tiles = Object.assign({}, A.tiles, { img });
+        if (A.tiles.fill) this.tiles.fillImg = await CG.Gfx.loadImage(A.tiles.fill);
+      }));
     }
     await Promise.all(jobs);
     for (const k in this.backgrounds) this.backgrounds[k] = this.backgrounds[k].filter(Boolean);
@@ -144,6 +149,7 @@ CG.Game = class Game {
     switch (this.scene) {
       case "title": {
         if (this.titleWorld && this.titleWorld.demoUpdate) this.titleWorld.demoUpdate(dt);
+        if (this.weather) this.weather.update(dt, 0, 0);
         this.particles.update(dt);
         const items = this.titleItems();
         this.menuNav(items.length);
@@ -175,6 +181,11 @@ CG.Game = class Game {
         if (this.hitstop > 0) { this.hitstop -= dt; break; }
         this.levelTime += dt;
         this.world.update(dt);
+        if (this.weather) {
+          const cam = this.world.cam, cx = cam ? cam.x : 0, cy = cam ? cam.y : 0;
+          this.weather.update(dt, this._wcx == null ? 0 : cx - this._wcx, this._wcy == null ? 0 : cy - this._wcy);
+          this._wcx = cx; this._wcy = cy;
+        }
         this.emit("onUpdate", dt, this.world);
         this.particles.update(dt);
         this.floaters.update(dt);
@@ -282,6 +293,7 @@ CG.Game = class Game {
     this.timers.clear();
     this.levelTime = 0;
     this.hitstop = 0;
+    this._wcx = this._wcy = null;
     this.world = this.genre.create(this, i, {});
     this.scene = "play";
     const L = this.spec.levels[i] || {};
@@ -365,6 +377,7 @@ CG.Game = class Game {
       case "intro": this.drawIntro(); break;
       case "play": case "clearing":
         this.world.draw(g);
+        if (this.weather && !this.world.dark) this.weather.draw(g.ctx, T);
         this.emit("draw", g, this.world);
         this.world.hud && this.world.hud(g);
         this.drawBanner();
@@ -394,6 +407,7 @@ CG.Game = class Game {
   drawTitle() {
     const g = this.gfx, T = this.theme, t = this.time;
     this.drawTitleBackdrop();
+    if (this.weather) this.weather.draw(g.ctx, T);
     this.particles.draw(g.ctx, 0, 0);
     const title = (this.spec.title || "UNTITLED").toUpperCase();
     let scale = 4;

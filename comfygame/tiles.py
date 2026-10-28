@@ -186,7 +186,59 @@ def _floor(ramps, rng, style, variant):
         for i in range(rng.randint(3, 6)):
             x, y = rng.randrange(2, TS - 2), rng.randrange(2, TS - 2)
             img[y, x] = _rgba(fl[0])
+    if variant >= 2:
+        _floor_detail(img, ramps, rng, style, variant)
     return img
+
+
+def _floor_detail(img, ramps, rng, style, variant):
+    """Style-specific floor flavour on variants 2-3 (the runtime clusters these into patches)."""
+    fl, acc = ramps["floor"], ramps["accent"]
+    if style in ("lava", "volcano"):
+        glow, hot = "#ff6a1a", "#ffd27a"
+        x, y = rng.randrange(2, 6), rng.randrange(3, 13)
+        for _ in range(9 if variant == 2 else 4):
+            img[y, x] = _rgba("#1a0e0c")
+            if 0 <= y - 1:
+                img[y - 1, x] = _rgba(glow)
+            x = min(TS - 1, x + 1)
+            y = max(1, min(TS - 2, y + rng.choice([-1, 0, 0, 1])))
+        img[y, x] = _rgba(hot)
+    elif style in ("grass", "jungle", "wood"):
+        for _ in range(2 if variant == 2 else 4):
+            x, y = rng.randrange(2, TS - 2), rng.randrange(3, TS - 2)
+            if variant == 3:
+                img[y, x] = _rgba(acc[2]); img[y - 1, x] = _rgba(acc[1]); img[y + 1, x] = _rgba(fl[0])
+            else:
+                img[y, x] = _rgba(fl[2]); img[y - 1, x] = _rgba(fl[2]); img[y - 2, x + 1] = _rgba(fl[2])
+    elif style in ("sand", "desert"):
+        for y0 in (4, 10):
+            for x in range(TS):
+                yy = y0 + (1 if (x // 3) % 2 else 0)
+                img[yy, x] = _rgba(fl[2])
+    elif style in ("snow", "ice"):
+        for _ in range(3):
+            x, y = rng.randrange(2, TS - 2), rng.randrange(2, TS - 2)
+            img[y, x] = _rgba("#ffffff")
+            if variant == 3:
+                img[y, x - 1] = img[y, x + 1] = _rgba(fl[2])
+    elif style == "tech":
+        y = rng.randrange(4, 12)
+        img[y, 3:13] = _rgba(acc[2] if variant == 2 else fl[2])
+        img[y + 1, 3:13] = _rgba(fl[0])
+    elif style == "candy":
+        for _ in range(3):
+            x, y = rng.randrange(2, TS - 2), rng.randrange(2, TS - 2)
+            img[y, x] = _rgba(rng.choice(["#ff7ab0", "#7ad6ff", "#ffe07a", "#9cf07a"]))
+    else:  # stone, dungeon, brick, cave: cracks and moss
+        x, y = rng.randrange(3, 8), rng.randrange(3, 8)
+        for _ in range(6):
+            img[y, x] = _rgba(fl[0])
+            x, y = min(TS - 2, x + rng.choice([0, 1])), min(TS - 2, y + 1)
+        if variant == 3:
+            for _ in range(3):
+                mx, my = rng.randrange(1, TS - 1), rng.randrange(1, TS - 1)
+                img[my, mx] = _rgba(P.mix(fl[1], "#4a7a3a", 0.5))
 
 
 def _decor(ramps, rng, style, i):
@@ -397,34 +449,23 @@ def generate(style="grass", palette=None, seed=0, lock_palette=True):
     return {"img": sheet, "size": TS, "cols": COLS, "style": style, "liquid": "lava" if style == "lava" else "water"}
 
 
-def tiles_from_texture(texture_rgba, style="grass", palette=None, seed=0):
-    """Build a tileset whose fill / floor uses a texture (e.g. an AI-generated material), edges stay procedural."""
+def tiles_from_texture(texture_rgba, style="grass", palette=None, seed=0, size=64, colors=12):
+    """Use any texture (e.g. an AI 'seamless stone texture') as the ground material.
+
+    The texture becomes a seamless `fill` pattern the runtime paints across solid ground, walls and floors in
+    world space (no 16 px repetition); caps, edges, props and blocks stay procedural from `style`.
+    """
     base = generate(style, palette, seed)
-    tex = px.resize(texture_rgba, TS, TS)
+    tex = texture_rgba.copy()
     tex[..., 3] = 255
-    sheet = base["img"].copy()
-    for idx in list(range(16)) + list(range(32, 52)):
-        x0, y0 = (idx % COLS) * TS, (idx // COLS) * TS
-        tile = sheet[y0:y0 + TS, x0:x0 + TS].copy()
-        mixed = tile.copy()
-        # keep the procedural edges / caps (outline + top rows), replace the interior texture
-        interior = np.ones((TS, TS), dtype=bool)
-        if idx < 16 and idx & 1:
-            interior[:5, :] = False
-        interior[0, :] = interior[-1, :] = False
-        interior[:, 0] = interior[:, -1] = False
-        if 32 <= idx < 48 and (idx - 32) & 4:
-            tex2 = (tex.astype(np.int32) * 0.65).astype(np.uint8)
-            tex2[..., 3] = 255
-            lower = np.zeros((TS, TS), dtype=bool)
-            lower[10:, :] = True
-            mixed[interior & lower] = tex2[interior & lower]
-            mixed[interior & ~lower] = tex[interior & ~lower]
-        else:
-            m = interior & (tile[..., 3] > 0)
-            mixed[m] = tex[m]
-        sheet[y0:y0 + TS, x0:x0 + TS] = mixed
-    base["img"] = sheet
+    side = min(tex.shape[0], tex.shape[1])
+    tex = tex[:side, :side]
+    small = px.mode_downscale(tex, size, size, colors=max(4, colors)) if colors else px.resize(tex, size, size)
+    small[..., 3] = 255
+    small = px.make_seamless(small)
+    if palette:
+        small = px.snap(small, P.resolve(palette))
+    base["fill"] = small
     return base
 
 
@@ -433,4 +474,7 @@ def preview(tileset, scale=4):
 
 
 def to_spec(tileset):
-    return {"src": px.data_url(tileset["img"]), "size": int(tileset["size"]), "cols": int(tileset["cols"]), "liquid": tileset.get("liquid", "water")}
+    out = {"src": px.data_url(tileset["img"]), "size": int(tileset["size"]), "cols": int(tileset["cols"]), "liquid": tileset.get("liquid", "water")}
+    if tileset.get("fill") is not None:
+        out["fill"] = px.data_url(tileset["fill"])
+    return out

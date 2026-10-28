@@ -231,7 +231,10 @@ def art_prompts(game, style=None):
         "enemy_2": actor(enemies[1] if len(enemies) > 1 else None, "monster"),
         "enemy_3": actor(enemies[2] if len(enemies) > 2 else None, "monster"),
         "boss": actor(game.get("boss"), "giant boss monster"),
-        "background": art.get("background_prompt") or f"{theme} landscape game background, wide panorama, layered parallax scenery, no characters, {style.replace('sprite', 'background')}",
+        "background": art.get("background_prompt") or (
+            f"{theme} outer space backdrop for a side-scrolling shooter, distant stars, nebula and planets, no ships, no text, {style.replace('sprite', 'background')}"
+            if game["genre"] == "shmup" else
+            f"side-scrolling 2D platformer game background, side view of a {theme} landscape with horizon, distant layered scenery, no characters, no text, {style.replace('sprite', 'background')}"),
         "tiles": art.get("tile_prompt") or f"seamless {game.get('tile_style') or theme} ground texture, top-down, tileable game texture, {style.replace('sprite', 'texture')}",
     }
     return out

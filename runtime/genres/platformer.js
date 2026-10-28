@@ -30,6 +30,7 @@
       this.goal = null;
       this.done = false;
       this.diff = (spec.rules.difficulty || 1);
+      this.dark = !!this.L.dark;
       this.abil = new Set((spec.player.abilities || []).map((a) => String(a).toLowerCase()));
       this.pmul = { speed: spec.player.speed || 1, jump: spec.player.jump || 1 };
       this._parse();
@@ -124,8 +125,16 @@
         const ch = this.grid[y][x];
         if (ch === "#") {
           const m = (this.isWall(x, y - 1) ? 0 : 1) | (this.isWall(x + 1, y) ? 0 : 2) | (this.isWall(x, y + 1) ? 0 : 4) | (this.isWall(x - 1, y) ? 0 : 8);
-          if (tiles) this._tile(ctx, tiles, m, x * TS, y * TS);
-          else {
+          if (tiles) {
+            this._tile(ctx, tiles, m, x * TS, y * TS);
+            if (tiles.fillImg) {
+              // material texture across the interior, in world space so it never repeats per tile
+              const l = m & 8 ? 2 : 0, r = m & 2 ? 2 : 0, t = m & 1 ? 5 : 0, b = m & 4 ? 2 : 0;
+              this._fillPat = this._fillPat || ctx.createPattern(tiles.fillImg, "repeat");
+              ctx.fillStyle = this._fillPat;
+              ctx.fillRect(x * TS + l, y * TS + t, TS - l - r, TS - t - b);
+            }
+          } else {
             ctx.fillStyle = T.panel; ctx.fillRect(x * TS, y * TS, TS, TS);
             if (m & 1) { ctx.fillStyle = T.accent; ctx.fillRect(x * TS, y * TS, TS, 3); }
           }
@@ -831,8 +840,8 @@
 
     drawDarkness(gfx, vx, vy) {
       const g = this.game, p = this.player;
-      this.dark = this.dark || gfx.makeCanvas(gfx.W, gfx.H);
-      const d = this.dark.getContext("2d");
+      this.darkC = this.darkC || gfx.makeCanvas(gfx.W, gfx.H);
+      const d = this.darkC.getContext("2d");
       d.globalCompositeOperation = "source-over";
       d.fillStyle = "rgba(4,4,12,0.86)"; d.fillRect(0, 0, gfx.W, gfx.H);
       d.globalCompositeOperation = "destination-out";
@@ -844,7 +853,7 @@
       light(p.x + p.w / 2 - vx, p.y + p.h / 2 - vy, 90 + Math.sin(this.t * 3) * 3);
       for (const it of this.items) if (it.kind === "gem") light(it.x - vx + 6, it.y - vy + 6, 30);
       for (const c of this.checkpoints) light(c.x + 8 - vx, c.y - vy, 40);
-      gfx.ctx.drawImage(this.dark, 0, 0);
+      gfx.ctx.drawImage(this.darkC, 0, 0);
     }
 
     hud(gfx) {

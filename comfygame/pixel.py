@@ -169,6 +169,17 @@ def mode_downscale(img, w, h, colors=24, alpha_cut=0.45):
     return out
 
 
+def make_seamless(img):
+    """Blend an image with its half-offset copy so it tiles without visible seams."""
+    h, w = img.shape[:2]
+    rolled = np.roll(np.roll(img, h // 2, axis=0), w // 2, axis=1).astype(np.float32)
+    yy = np.sin(np.linspace(0, np.pi, h))[:, None]
+    xx = np.sin(np.linspace(0, np.pi, w))[None, :]
+    wgt = np.clip((yy * xx) * 1.6, 0, 1)[..., None]
+    out = img.astype(np.float32) * wgt + rolled * (1 - wgt)
+    return np.clip(out, 0, 255).astype(np.uint8)
+
+
 def has_outline(img, dark=0.28):
     """True when the silhouette edge is already mostly dark (art with its own outline)."""
     solid = img[..., 3] > 127

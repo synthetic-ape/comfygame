@@ -50,7 +50,10 @@
         if (!wall(x, y)) {
           if (tiles) {
             const n = CG.vnoise(x / 6, y / 6, seed);
-            this.tileAt(ctx, 48 + (n > 0.62 ? 3 : n < 0.3 ? 2 : Math.floor(h(y, x) * 2)), x * TS, y * TS);
+            const r = h(y, x);
+            const v = n > 0.62 ? (r < 0.5 ? 3 : r < 0.75 ? 2 : 0) : n < 0.3 ? (r < 0.45 ? 2 : 1) : (r < 0.5 ? 0 : 1);
+            this.tileAt(ctx, 48 + v, x * TS, y * TS);
+            if (tiles.fillImg) { ctx.fillStyle = this.fillPattern(ctx); ctx.fillRect(x * TS, y * TS, TS, TS); ctx.fillStyle = "rgba(0,0,0,0.38)"; ctx.fillRect(x * TS, y * TS, TS, TS); }
             if (h(x, y) < 0.05 + (n > 0.55 ? 0.08 : 0)) this.tileAt(ctx, 52 + Math.floor(h(x + 3, y) * 4), x * TS, y * TS);
           } else { ctx.fillStyle = (x + y) % 2 ? T.panel : CG.mix(T.panel, T.bg, 0.4); ctx.fillRect(x * TS, y * TS, TS, TS); }
         }
@@ -67,9 +70,20 @@
         if (m & 4 && y + 1 < this.h) { ctx.fillStyle = "rgba(0,0,0,0.3)"; ctx.fillRect(x * TS, (y + 1) * TS, TS, 6); }
         if (tiles) this.tileAt(ctx, 32 + m, x * TS, y * TS);
         else { ctx.fillStyle = T.panelEdge; ctx.fillRect(x * TS, y * TS, TS, TS); ctx.fillStyle = T.shadow; ctx.fillRect(x * TS, y * TS + 11, TS, 5); }
+        if (tiles && tiles.fillImg) {
+          const face = m & 4 ? 6 : 0, l = m & 8 ? 2 : 0, r = m & 2 ? 1 : 0, t = m & 1 ? 2 : 0, pat = this.fillPattern(ctx);
+          ctx.fillStyle = pat; ctx.fillRect(x * TS + l, y * TS + t, TS - l - r, TS - t - face);
+          ctx.fillStyle = "rgba(255,255,255,0.08)"; ctx.fillRect(x * TS + l, y * TS + t, TS - l - r, TS - t - face);
+          if (face) {
+            const fy = (y + 1) * TS - face + 1, fh = face - 2;
+            ctx.fillStyle = pat; ctx.fillRect(x * TS + l, fy, TS - l - r, fh);
+            ctx.fillStyle = "rgba(0,0,0,0.45)"; ctx.fillRect(x * TS + l, fy, TS - l - r, fh);
+          }
+        }
       }
       return c;
     }
+    fillPattern(ctx) { this._fillPat = this._fillPat || ctx.createPattern(this.game.tiles.fillImg, "repeat"); return this._fillPat; }
     tileAt(ctx, idx, x, y) { const t = this.game.tiles, cols = t.cols || 8, s = t.size || TS; ctx.drawImage(t.img, (idx % cols) * s, Math.floor(idx / cols) * s, s, s, x, y, TS, TS); }
 
     spawnEnemy(def, x, y) { const e = TD.makeEnemy(this, def, x, y); this.enemies.push(e); return e; }
@@ -222,7 +236,7 @@
     }
 
     cardLayout() {
-      const W = this.game.W, H = this.game.H, cw = 120, ch = 82, gap = 12;
+      const W = this.game.W, H = this.game.H, cw = Math.min(120, Math.floor((W - 40) / 3)), ch = 82, gap = 10;
       const x0 = W / 2 - (cw * 3 + gap * 2) / 2;
       return [0, 1, 2].map((i) => ({ x: x0 + i * (cw + gap), y: H / 2 - ch / 2 + 6, w: cw, h: ch }));
     }

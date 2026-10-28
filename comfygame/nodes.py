@@ -251,14 +251,16 @@ class GameSetup(io.ComfyNode):
                 io.String.Input("intro_story", default="", multiline=True, optional=True, tooltip="Typewriter story shown before level 1"),
                 io.String.Input("ending_text", default="", multiline=True, optional=True, tooltip="Shown on the victory screen"),
                 io.Boolean.Input("crt_filter", default=False, optional=True),
-                io.Combo.Input("resolution", options=["480x270", "640x360", "384x216", "320x180"], default="480x270", optional=True, tooltip="Internal pixel resolution (scaled to fit the screen)"),
+                io.Combo.Input("resolution", options=["auto", "480x270", "384x216", "640x360", "320x180"], default="auto", optional=True, tooltip="Internal pixel resolution, scaled to fit the screen. auto: 480x270 for side-scrollers, 384x216 (closer camera) for top-down games"),
                 PALETTE.Input("palette", optional=True),
             ],
             outputs=[GAME.Output(display_name="game")],
         )
 
     @classmethod
-    def execute(cls, title, genre, theme, difficulty, seed, lives, tagline="", intro_story="", ending_text="", crt_filter=False, resolution="480x270", palette=None):
+    def execute(cls, title, genre, theme, difficulty, seed, lives, tagline="", intro_story="", ending_text="", crt_filter=False, resolution="auto", palette=None):
+        if resolution == "auto":
+            resolution = "384x216" if genre in ("arena", "dungeon") else "480x270"
         res = [int(v) for v in resolution.split("x")]
         g = G.new_game(title, genre, seed, difficulty, lives, tagline, intro_story, ending_text, palette, None if theme == "auto" else theme, crt_filter, res)
         return io.NodeOutput(g)
@@ -467,21 +469,19 @@ class TilesetFromImage(io.ComfyNode):
             node_id="ComfyGameTilesetFromImage", display_name="Tileset From Texture", category=CAT + "/Art",
             description="Use any texture image (e.g. an AI 'seamless stone texture') as the ground fill; edges, caps and props stay procedural.",
             inputs=[io.Image.Input("texture"), io.Combo.Input("style", options=tiles.STYLE_NAMES, default="stone", tooltip="Style for the procedural edges and props"),
-                    io.Int.Input("max_colors", default=8, min=0, max=32), PALETTE.Input("palette", optional=True)],
+                    io.Int.Input("max_colors", default=12, min=0, max=32, tooltip="Colours in the pixelated texture (0 = keep)"), PALETTE.Input("palette", optional=True)],
             outputs=[TILESET.Output(display_name="tileset"), io.Image.Output(display_name="sheet")],
         )
 
     @classmethod
     def execute(cls, texture, style, max_colors, palette=None):
         pal = opt_palette(palette)
-        tex = image_to_rgba(texture)
-        tex = px.resize(tex, 16, 16)
-        if max_colors:
-            tex = px.quantize(tex, max_colors)
-        if pal:
-            tex = px.snap(tex, pal)
-        t = tiles.tiles_from_texture(tex, style, pal)
-        return io.NodeOutput(t, to_image(px.preview(t["img"], scale=3)), ui=preview(cls, t["img"], scale=3))
+        t = tiles.tiles_from_texture(image_to_rgba(texture), style, pal, colors=max_colors)
+        sample = px.blank(t["fill"].shape[1] * 3, t["fill"].shape[0] * 2)
+        for yy in range(2):
+            for xx in range(3):
+                sample[yy * t["fill"].shape[0]:(yy + 1) * t["fill"].shape[0], xx * t["fill"].shape[1]:(xx + 1) * t["fill"].shape[1]] = t["fill"]
+        return io.NodeOutput(t, to_image(px.preview(t["img"], scale=3)), ui=preview(cls, sample, scale=3))
 
 
 class Background(io.ComfyNode):

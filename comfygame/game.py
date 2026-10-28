@@ -45,8 +45,9 @@ def slugify(s):
 
 
 def new_game(title="My Game", genre="platformer", seed=0, difficulty="normal", lives=3, tagline="", intro="", ending="", palette=None,
-             theme=None, crt=False, resolution=(480, 270)):
+             theme=None, crt=False, resolution=None):
     genre = genre if genre in GENRES else "platformer"
+    resolution = resolution or ((384, 216) if genre in ("arena", "dungeon") else (480, 270))
     d = GENRE_DEFAULTS[genre]
     diff = {"easy": 0.7, "normal": 1.0, "hard": 1.35, "brutal": 1.7}.get(str(difficulty).lower(), difficulty if isinstance(difficulty, (int, float)) else 1.0)
     return {

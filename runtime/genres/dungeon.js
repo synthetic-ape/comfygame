@@ -58,9 +58,13 @@
       const open = (x, y) => x >= 0 && y >= 0 && x < this.w && y < this.h && this.grid[y][x] !== " " && !wall(x, y);
       for (let y = 0; y < this.h; y++) for (let x = 0; x < this.w; x++) {
         if (!open(x, y)) continue;
-        if (tiles) { this.tileAt(ctx, 48 + Math.floor(h(x, y) * 4), x * TS, y * TS); if (h(y, x) < 0.08) this.tileAt(ctx, 52 + Math.floor(h(x + 1, y) * 4), x * TS, y * TS); }
+        if (tiles) {
+          const n = CG.vnoise(x / 5, y / 5, this.game.levelIndex * 13 + 7), r = h(x, y);
+          this.tileAt(ctx, 48 + (n > 0.64 ? (r < 0.6 ? 3 : 2) : n < 0.3 ? (r < 0.5 ? 2 : 1) : (r < 0.5 ? 0 : 1)), x * TS, y * TS);
+          if (tiles.fillImg) { ctx.fillStyle = this.fillPattern(ctx); ctx.fillRect(x * TS, y * TS, TS, TS); ctx.fillStyle = "rgba(0,0,0,0.42)"; ctx.fillRect(x * TS, y * TS, TS, TS); }
+          if (h(y, x) < 0.06) this.tileAt(ctx, 52 + Math.floor(h(x + 1, y) * 4), x * TS, y * TS);
+        }
         else { ctx.fillStyle = (x + y) % 2 ? T.panel : CG.mix(T.panel, T.bg, 0.4); ctx.fillRect(x * TS, y * TS, TS, TS); }
-        if (this.grid[y][x] === "^" ) {}
       }
       for (let y = 0; y < this.h; y++) for (let x = 0; x < this.w; x++) {
         if (!wall(x, y)) continue;
@@ -72,9 +76,20 @@
         if (m & 4 && open(x, y + 1)) { ctx.fillStyle = "rgba(0,0,0,0.35)"; ctx.fillRect(x * TS, (y + 1) * TS, TS, 7); }
         if (tiles) this.tileAt(ctx, 32 + m, x * TS, y * TS);
         else { ctx.fillStyle = T.panelEdge; ctx.fillRect(x * TS, y * TS, TS, TS); ctx.fillStyle = T.shadow; ctx.fillRect(x * TS, y * TS + 10, TS, 6); }
+        if (tiles && tiles.fillImg) {
+          const face = m & 4 ? 6 : 0, l = m & 8 ? 2 : 0, r = m & 2 ? 1 : 0, t = m & 1 ? 2 : 0, pat = this.fillPattern(ctx);
+          ctx.fillStyle = pat; ctx.fillRect(x * TS + l, y * TS + t, TS - l - r, TS - t - face);
+          ctx.fillStyle = "rgba(255,255,255,0.08)"; ctx.fillRect(x * TS + l, y * TS + t, TS - l - r, TS - t - face);
+          if (face) {
+            const fy = (y + 1) * TS - face + 1, fh = face - 2;
+            ctx.fillStyle = pat; ctx.fillRect(x * TS + l, fy, TS - l - r, fh);
+            ctx.fillStyle = "rgba(0,0,0,0.45)"; ctx.fillRect(x * TS + l, fy, TS - l - r, fh);
+          }
+        }
       }
       return c;
     }
+    fillPattern(ctx) { this._fillPat = this._fillPat || ctx.createPattern(this.game.tiles.fillImg, "repeat"); return this._fillPat; }
     tileAt(ctx, idx, x, y) { const t = this.game.tiles, cols = t.cols || 8, s = t.size || TS; ctx.drawImage(t.img, (idx % cols) * s, Math.floor(idx / cols) * s, s, s, x, y, TS, TS); }
 
     spawnEnemy(def, x, y) { const e = TD.makeEnemy(this, def, x, y); this.enemies.push(e); return e; }

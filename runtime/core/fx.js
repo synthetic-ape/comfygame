@@ -154,3 +154,67 @@ CG.Transition = class Transition {
     }
   }
 };
+
+// Ambient weather layer drawn over the world in screen space (leaves, snow, embers, dust, bubbles...).
+CG.Weather = class Weather {
+  constructor(theme, w, h) {
+    this.w = w; this.h = h;
+    const kinds = {
+      forest: "leaves", jungle: "fireflies", snow: "snow", mountains: "snow_light", volcano: "embers", castle: "dust", cave: "dust",
+      desert: "sand", candy: "sparkles", ocean: "spray", underwater: "bubbles", city: "rain", sky: "sparkles", space: null,
+    };
+    this.kind = kinds[theme] === undefined ? "dust" : kinds[theme];
+    this.p = [];
+    const n = { leaves: 18, fireflies: 22, snow: 70, snow_light: 25, embers: 40, dust: 30, sand: 45, sparkles: 22, spray: 20, bubbles: 26, rain: 90 }[this.kind] || 0;
+    for (let i = 0; i < n; i++) this.p.push(this.spawn(true));
+  }
+  spawn(anywhere) {
+    const r = Math.random;
+    const q = { x: r() * this.w, y: anywhere ? r() * this.h : -6, t: r() * 10, s: 0.5 + r() * 0.8 };
+    if (this.kind === "embers" || this.kind === "bubbles") q.y = anywhere ? r() * this.h : this.h + 6;
+    return q;
+  }
+  update(dt, camDX = 0, camDY = 0) {
+    if (!this.kind) return;
+    for (let i = 0; i < this.p.length; i++) {
+      const q = this.p[i];
+      q.t += dt;
+      q.x -= camDX * (0.3 + q.s * 0.5); q.y -= camDY * (0.3 + q.s * 0.5);
+      switch (this.kind) {
+        case "leaves": q.x += (Math.sin(q.t * 1.3) * 14 - 8) * dt; q.y += 14 * q.s * dt; break;
+        case "snow": case "snow_light": q.x += Math.sin(q.t * 1.7 + i) * 10 * dt - 4 * dt; q.y += 22 * q.s * dt; break;
+        case "embers": q.x += Math.sin(q.t * 2 + i) * 9 * dt; q.y -= 18 * q.s * dt; break;
+        case "bubbles": q.x += Math.sin(q.t * 2.5 + i) * 6 * dt; q.y -= 16 * q.s * dt; break;
+        case "rain": q.x -= 40 * dt; q.y += 260 * q.s * dt; break;
+        case "sand": q.x -= 70 * q.s * dt; q.y += Math.sin(q.t * 3 + i) * 6 * dt; break;
+        case "spray": q.x -= 10 * dt; q.y += Math.sin(q.t + i) * 4 * dt; break;
+        default: q.x += Math.sin(q.t * 0.7 + i) * 5 * dt; q.y += Math.cos(q.t * 0.6 + i) * 4 * dt;
+      }
+      if (q.y > this.h + 8 || q.y < -8 || q.x < -8 || q.x > this.w + 8) {
+        const n = this.spawn(false);
+        if (this.kind === "sand") { n.x = this.w + 4; n.y = Math.random() * this.h; }
+        if (q.x < -8 || q.x > this.w + 8) { n.x = q.x < 0 ? this.w + 4 : -4; n.y = Math.random() * this.h; }
+        this.p[i] = n;
+      }
+    }
+  }
+  draw(ctx, theme) {
+    if (!this.kind) return;
+    for (const q of this.p) {
+      const x = Math.round(q.x), y = Math.round(q.y);
+      switch (this.kind) {
+        case "leaves": ctx.globalAlpha = 0.85; ctx.fillStyle = Math.sin(q.t * 3) > 0 ? theme.accent : CG.mix(theme.accent, "#000000", 0.3); ctx.fillRect(x, y, 2, Math.sin(q.t * 4) > 0 ? 2 : 1); break;
+        case "fireflies": { const a = 0.5 + Math.sin(q.t * 3) * 0.5; ctx.globalAlpha = a; ctx.fillStyle = "#f6f2a0"; ctx.fillRect(x, y, 1, 1); ctx.globalAlpha = a * 0.3; ctx.fillRect(x - 1, y - 1, 3, 3); break; }
+        case "snow": case "snow_light": ctx.globalAlpha = 0.6 + q.s * 0.3; ctx.fillStyle = "#ffffff"; ctx.fillRect(x, y, q.s > 1 ? 2 : 1, q.s > 1 ? 2 : 1); break;
+        case "embers": ctx.globalAlpha = 0.5 + Math.sin(q.t * 6) * 0.4; ctx.fillStyle = q.s > 0.9 ? "#ffd27a" : "#ff7a2a"; ctx.fillRect(x, y, 1, 1); break;
+        case "bubbles": ctx.globalAlpha = 0.5; ctx.strokeStyle = "#cff6ff"; ctx.lineWidth = 1; ctx.beginPath(); ctx.arc(x, y, 1 + q.s * 1.5, 0, TAU); ctx.stroke(); break;
+        case "rain": ctx.globalAlpha = 0.35; ctx.fillStyle = "#a8c8ff"; ctx.fillRect(x, y, 1, 4); break;
+        case "sand": ctx.globalAlpha = 0.45; ctx.fillStyle = "#f0d8a0"; ctx.fillRect(x, y, 2, 1); break;
+        case "sparkles": { const a = Math.max(0, Math.sin(q.t * 2.5)); ctx.globalAlpha = a; ctx.fillStyle = "#ffffff"; ctx.fillRect(x, y, 1, 1); if (a > 0.8) { ctx.fillRect(x - 1, y, 3, 1); ctx.fillRect(x, y - 1, 1, 3); } break; }
+        case "spray": ctx.globalAlpha = 0.3; ctx.fillStyle = "#ffffff"; ctx.fillRect(x, y, 1, 1); break;
+        default: ctx.globalAlpha = 0.25 + Math.sin(q.t) * 0.15; ctx.fillStyle = "#e8e0d0"; ctx.fillRect(x, y, 1, 1);
+      }
+    }
+    ctx.globalAlpha = 1;
+  }
+};
