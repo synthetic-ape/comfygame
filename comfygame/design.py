@@ -23,7 +23,7 @@ LOOKS = sprites.HERO_KINDS + sprites.CREATURE_KINDS + sprites.SHIP_KINDS + ["ene
 LOOK_WORDS = [
     (r"knight|paladin|soldier|warrior|guard|armou?r", "knight"), (r"wizard|mage|witch|sorcer|warlock|magic", "mage"),
     (r"ninja|assassin|samurai|rogue|thief", "ninja"), (r"robot|android|mech|cyborg|bot\b|machine", "robot"),
-    (r"fox|cat|dog|wolf|rabbit|bunny|animal|bear|raccoon|squirrel|hamster", "fox"), (r"astronaut|space ?man|pilot|cosmonaut", "astronaut"),
+    (r"fox|cat|dog|wolf|rabbit|bunny|animal|bear|raccoon|squirrel|hamster|penguin|otter|duck|bird|owl|frog|panda|pig|hedgehog|mouse|kitten|puppy|monkey|koala|sloth", "fox"), (r"astronaut|space ?man|pilot|cosmonaut", "astronaut"),
     (r"ranger|archer|elf|hunter|hood|explorer|adventurer|scout", "ranger"), (r"princess|queen|girl|lady|fairy|dancer", "princess"),
     (r"slime|blob|ooze|jelly|goo", "slime"), (r"bat|vampire", "bat"), (r"ghost|spirit|phantom|wraith|specter|spectre|soul", "ghost"),
     (r"eye|watcher|beholder", "eyeball"), (r"spider|arachnid|crab|scorpion", "spider"), (r"mushroom|shroom|fung", "mushroom"),
@@ -43,6 +43,24 @@ def guess_look(text, default="mutant"):
     return default
 
 
+THEME_SYNONYMS = {
+    "snow": "ice frozen winter arctic glacier tundra polar snowy christmas kitchen",
+    "ocean": "sea beach water island coast lake river pirate tropical shore",
+    "space": "galaxy stars cosmic planet orbit nebula alien moon starship",
+    "volcano": "lava fire hell inferno magma ash furnace",
+    "castle": "dungeon crypt tomb catacomb haunted gothic medieval mansion spooky",
+    "city": "cyberpunk neon urban street factory lab robot metropolis",
+    "desert": "sand dune egypt pyramid canyon wasteland",
+    "mountains": "mountain peak cliff hills highland alpine",
+    "forest": "woods garden meadow grassland village farm park",
+    "cave": "underground mine cavern crystal tunnel",
+    "candy": "sweet sugar cake toy dessert bakery",
+    "jungle": "rainforest swamp temple aztec tiki",
+    "sky": "clouds heaven floating airship",
+    "underwater": "reef coral abyss deep_sea aquarium submarine",
+}
+
+
 def _closest(value, options, default):
     v = str(value or "").lower().strip().replace(" ", "_").replace("-", "_")
     if v in options:
@@ -51,6 +69,17 @@ def _closest(value, options, default):
         if v and (v in o or o in v):
             return o
     return default
+
+
+def theme_of_text(text):
+    t = _closest(text, backgrounds.THEME_NAMES, None)
+    if t:
+        return t
+    words = re.findall(r"[a-z_]+", str(text or "").lower())
+    for theme, syn in THEME_SYNONYMS.items():
+        if any(w in syn.split() for w in words):
+            return theme
+    return None
 
 
 def _num(v, d, lo, hi):
@@ -112,7 +141,7 @@ def to_game(design, seed=None):
     genre = _closest(d.get("genre"), G.GENRES, "platformer")
     title = str(d.get("title") or "Untitled")[:40]
     seed = int(seed if seed is not None else d.get("seed", _seed_from(title))) & 0x7FFFFFFF
-    theme = _closest(d.get("theme") or d.get("background"), backgrounds.THEME_NAMES, None) or G.GENRE_DEFAULTS[genre]["bg"]
+    theme = theme_of_text(d.get("theme") or d.get("background")) or G.GENRE_DEFAULTS[genre]["bg"]
     pal = d.get("palette")
     pal = palettes.resolve(pal) if pal else palettes.resolve(G.THEME_PALETTE.get(theme, "forest"))
     story = d.get("story") or {}
@@ -165,7 +194,7 @@ def to_game(design, seed=None):
     g["music_style"] = _closest(m.get("instruments"), list(music.INSTRUMENTS.keys()), "nes")
     g["sfx_style"] = _closest(d.get("sfx"), list(sfx.STYLES.keys()), "retro")
     g["tile_style"] = _closest(d.get("tiles"), tiles.STYLE_NAMES, None)
-    g["bg_theme"] = _closest(d.get("background"), backgrounds.THEME_NAMES, None)
+    g["bg_theme"] = theme_of_text(d.get("background")) if d.get("background") else None
     art = d.get("art") or {}
     g["extra"]["art"] = {"style": str(art.get("style") or ""), "background_prompt": str(art.get("background_prompt") or ""), "tile_prompt": str(art.get("tile_prompt") or "")}
     if d.get("script"):

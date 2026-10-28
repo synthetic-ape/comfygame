@@ -683,6 +683,11 @@ CG.modApi = (game) => ({
   sprite: (key) => game.sprites[key],
   draw: (key, frame, x, y, o) => game.gfx.sprite(game.sprites[key], frame, x, y, o),
   theme: game.theme,
+  damage: (e, n = 1) => { const w = game.world; if (!w || !e) return; if (w.damageEnemy) w.damageEnemy(e, n, 0, 0); else if (w.damage) w.damage(e, n); else e.hp -= n; },
+  kill: (e) => { const w = game.world; if (w && e && w.killEnemy) w.killEnemy(e, 0); },
+  rect: (x, y, w, h, color) => game.gfx.rect(x, y, w, h, color),
+  bar: (x, y, w, h, frac, color) => game.gfx.bar(x, y, w, h, frac, color),
+  circle: (x, y, r, color) => game.gfx.circle(x, y, r, color),
   win: () => game.world && game.world.forceWin && game.world.forceWin(),
   hurtPlayer: (n) => game.world && game.world.hurtPlayer && game.world.hurtPlayer(n || 1),
 });

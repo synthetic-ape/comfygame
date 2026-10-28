@@ -170,11 +170,18 @@ def _floor(ramps, rng, style, variant):
             elif r > 0.95:
                 img[y, x] = _rgba(fl[2])
     if kind in ("brick", "panel", "plank") or style in ("dungeon", "tech", "stone"):
-        img[TS - 1, :] = _rgba(fl[0]); img[:, TS - 1] = _rgba(fl[0])
-        if kind == "panel":
-            img[0, :] = _rgba(fl[2]); img[:, 0] = _rgba(fl[2])
-        if variant == 1:
-            img[7, :] = _rgba(fl[0])
+        grout = P.mix(fl[1], fl[0], 0.55)
+        if kind == "plank":
+            for y in (5, 10, 15):
+                img[y, :] = _rgba(grout)
+            img[0:5, (variant * 5 + 3) % TS] = _rgba(grout)
+            img[6:10, (variant * 5 + 11) % TS] = _rgba(grout)
+        else:
+            img[TS - 1, :] = _rgba(grout); img[:, TS - 1] = _rgba(grout)
+            if kind == "panel":
+                img[0, :] = _rgba(P.mix(fl[1], fl[2], 0.5)); img[:, 0] = _rgba(P.mix(fl[1], fl[2], 0.5))
+            if variant == 1:
+                img[7, :] = _rgba(grout)
     if variant == 3:
         for i in range(rng.randint(3, 6)):
             x, y = rng.randrange(2, TS - 2), rng.randrange(2, TS - 2)

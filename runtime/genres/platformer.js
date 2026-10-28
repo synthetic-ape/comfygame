@@ -445,6 +445,7 @@
         if (e.y > this.cam.y + this.cam.h + 40) e.gone = true;
         return;
       }
+      if (e.hp <= 0) { this.killEnemy(e, 0); return; }
       if (!this.cam.visible(e.x, e.y, e.w, e.h, 140) && !this.demo) return;
       const dx = p.x + p.w / 2 - (e.x + e.w / 2), dy = p.y + p.h / 2 - (e.y + e.h / 2);
       const near = Math.abs(dx) < 170 && Math.abs(dy) < 90;

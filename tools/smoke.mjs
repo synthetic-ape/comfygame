@@ -61,7 +61,7 @@ async function testGame(base, id, out) {
   const report = { id, ok: true, notes: [] };
   const shot = async (name) => b.shot(path.join(out, `${id}_${name}.png`));
   try {
-    await b.goto(`${base.replace(/\/$/, "")}/${id}/`);
+    await b.goto(`${base.replace(/\/$/, "")}/${id}`);
     await sleep(1500);
     const genre = await b.eval("CG.game && CG.game.spec.genre");
     report.genre = genre;

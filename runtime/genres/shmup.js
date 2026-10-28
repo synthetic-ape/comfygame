@@ -141,6 +141,7 @@
     updateEnemy(e, dt) {
       const g = this.game, p = this.player;
       if (e.delay > 0) { e.delay -= dt; return; }
+      if (e.hp <= 0 && !e.dead) { e.hp = 0.0001; this.damage(e, 1); return; }
       e.t += dt; e.flash = Math.max(0, e.flash - dt);
       const sp = e.speed;
       switch (e.pattern) {

@@ -1,0 +1,615 @@
+{
+ "id": "00000000-0000-0000-0000-000000000000",
+ "revision": 0,
+ "last_node_id": 5,
+ "last_link_id": 3,
+ "nodes": [
+  {
+   "id": 1,
+   "type": "MarkdownNote",
+   "pos": [
+    40,
+    40
+   ],
+   "size": [
+    460,
+    280
+   ],
+   "flags": {},
+   "order": 0,
+   "mode": 0,
+   "inputs": [],
+   "outputs": [],
+   "properties": {},
+   "widgets_values": [
+    "# Draw your own level\n\nEdit the text in **Level From Text**: `#` ground, `=` platform, `^` spikes, `o` coin, `*` gem, `?` bonus block, `S` spring, `M` moving platform, `a`-`h` enemies, `P` start, `G` goal.\n\nIt becomes level 1, followed by two generated levels with a boss."
+   ],
+   "widgets_values_named": {
+    "text": "# Draw your own level\n\nEdit the text in **Level From Text**: `#` ground, `=` platform, `^` spikes, `o` coin, `*` gem, `?` bonus block, `S` spring, `M` moving platform, `a`-`h` enemies, `P` start, `G` goal.\n\nIt becomes level 1, followed by two generated levels with a boss."
+   },
+   "color": "#432",
+   "bgcolor": "#653"
+  },
+  {
+   "id": 2,
+   "type": "ComfyGameSetup",
+   "pos": [
+    40,
+    380
+   ],
+   "size": [
+    300,
+    382
+   ],
+   "flags": {},
+   "order": 1,
+   "mode": 0,
+   "inputs": [
+    {
+     "localized_name": "palette",
+     "name": "palette",
+     "shape": 7,
+     "type": "CG_PALETTE",
+     "link": null
+    },
+    {
+     "localized_name": "title",
+     "name": "title",
+     "type": "STRING",
+     "widget": {
+      "name": "title"
+     },
+     "link": null
+    },
+    {
+     "localized_name": "genre",
+     "name": "genre",
+     "type": "COMBO",
+     "widget": {
+      "name": "genre"
+     },
+     "link": null
+    },
+    {
+     "localized_name": "theme",
+     "name": "theme",
+     "type": "COMBO",
+     "widget": {
+      "name": "theme"
+     },
+     "link": null
+    },
+    {
+     "localized_name": "difficulty",
+     "name": "difficulty",
+     "type": "COMBO",
+     "widget": {
+      "name": "difficulty"
+     },
+     "link": null
+    },
+    {
+     "localized_name": "seed",
+     "name": "seed",
+     "type": "INT",
+     "widget": {
+      "name": "seed"
+     },
+     "link": null
+    },
+    {
+     "localized_name": "lives",
+     "name": "lives",
+     "type": "INT",
+     "widget": {
+      "name": "lives"
+     },
+     "link": null
+    },
+    {
+     "localized_name": "tagline",
+     "name": "tagline",
+     "shape": 7,
+     "type": "STRING",
+     "widget": {
+      "name": "tagline"
+     },
+     "link": null
+    },
+    {
+     "localized_name": "intro_story",
+     "name": "intro_story",
+     "shape": 7,
+     "type": "STRING",
+     "widget": {
+      "name": "intro_story"
+     },
+     "link": null
+    },
+    {
+     "localized_name": "ending_text",
+     "name": "ending_text",
+     "shape": 7,
+     "type": "STRING",
+     "widget": {
+      "name": "ending_text"
+     },
+     "link": null
+    },
+    {
+     "localized_name": "crt_filter",
+     "name": "crt_filter",
+     "shape": 7,
+     "type": "BOOLEAN",
+     "widget": {
+      "name": "crt_filter"
+     },
+     "link": null
+    },
+    {
+     "localized_name": "resolution",
+     "name": "resolution",
+     "shape": 7,
+     "type": "COMBO",
+     "widget": {
+      "name": "resolution"
+     },
+     "link": null
+    }
+   ],
+   "outputs": [
+    {
+     "localized_name": "game",
+     "name": "game",
+     "type": "CG_GAME",
+     "links": [
+      1
+     ]
+    }
+   ],
+   "properties": {
+    "Node name for S&R": "ComfyGameSetup"
+   },
+   "widgets_values": [
+    "Handmade Hero",
+    "platformer",
+    "candy",
+    "normal",
+    9,
+    "fixed",
+    3,
+    "A tiny knight. A very big forest.",
+    "",
+    "",
+    false,
+    "480x270"
+   ],
+   "widgets_values_named": {
+    "title": "Handmade Hero",
+    "genre": "platformer",
+    "theme": "candy",
+    "difficulty": "normal",
+    "seed": 9,
+    "control_after_generate": "fixed",
+    "lives": 3,
+    "tagline": "A tiny knight. A very big forest.",
+    "intro_story": "",
+    "ending_text": "",
+    "crt_filter": false,
+    "resolution": "480x270"
+   },
+   "color": "#1d4d55",
+   "bgcolor": "#163c42"
+  },
+  {
+   "id": 3,
+   "type": "ComfyGameAsciiLevel",
+   "pos": [
+    560,
+    40
+   ],
+   "size": [
+    520,
+    420
+   ],
+   "flags": {},
+   "order": 2,
+   "mode": 0,
+   "inputs": [
+    {
+     "localized_name": "levels",
+     "name": "levels",
+     "shape": 7,
+     "type": "CG_LEVELS",
+     "link": null
+    },
+    {
+     "localized_name": "text",
+     "name": "text",
+     "type": "STRING",
+     "widget": {
+      "name": "text"
+     },
+     "link": null
+    },
+    {
+     "localized_name": "name",
+     "name": "name",
+     "type": "STRING",
+     "widget": {
+      "name": "name"
+     },
+     "link": null
+    },
+    {
+     "localized_name": "kind",
+     "name": "kind",
+     "type": "COMBO",
+     "widget": {
+      "name": "kind"
+     },
+     "link": null
+    }
+   ],
+   "outputs": [
+    {
+     "localized_name": "levels",
+     "name": "levels",
+     "type": "CG_LEVELS",
+     "links": [
+      2
+     ]
+    },
+    {
+     "localized_name": "map",
+     "name": "map",
+     "type": "IMAGE",
+     "links": null
+    }
+   ],
+   "properties": {
+    "Node name for S&R": "ComfyGameAsciiLevel"
+   },
+   "widgets_values": [
+    "........................................\n........................................\n.........................o.o.o..........\n........................=======.....*...\n.........?#?#?..........................\n.................................ooo....\n.......................b.........===..G.\n..P..........a................c......###\n#############..#####^^####..############\n#############..#############..##########",
+    "Handmade Level",
+    "platformer"
+   ],
+   "widgets_values_named": {
+    "text": "........................................\n........................................\n.........................o.o.o..........\n........................=======.....*...\n.........?#?#?..........................\n.................................ooo....\n.......................b.........===..G.\n..P..........a................c......###\n#############..#####^^####..############\n#############..#############..##########",
+    "name": "Handmade Level",
+    "kind": "platformer"
+   },
+   "color": "#2f5a2c",
+   "bgcolor": "#244522"
+  },
+  {
+   "id": 4,
+   "type": "ComfyGamePlatformerLevels",
+   "pos": [
+    560,
+    520
+   ],
+   "size": [
+    300,
+    294
+   ],
+   "flags": {},
+   "order": 3,
+   "mode": 0,
+   "inputs": [
+    {
+     "localized_name": "levels",
+     "name": "levels",
+     "shape": 7,
+     "type": "CG_LEVELS",
+     "link": 2
+    },
+    {
+     "localized_name": "count",
+     "name": "count",
+     "type": "INT",
+     "widget": {
+      "name": "count"
+     },
+     "link": null
+    },
+    {
+     "localized_name": "length",
+     "name": "length",
+     "type": "INT",
+     "widget": {
+      "name": "length"
+     },
+     "link": null
+    },
+    {
+     "localized_name": "spikes",
+     "name": "spikes",
+     "type": "BOOLEAN",
+     "widget": {
+      "name": "spikes"
+     },
+     "link": null
+    },
+    {
+     "localized_name": "moving_platforms",
+     "name": "moving_platforms",
+     "type": "BOOLEAN",
+     "widget": {
+      "name": "moving_platforms"
+     },
+     "link": null
+    },
+    {
+     "localized_name": "springs",
+     "name": "springs",
+     "type": "BOOLEAN",
+     "widget": {
+      "name": "springs"
+     },
+     "link": null
+    },
+    {
+     "localized_name": "crumbling_blocks",
+     "name": "crumbling_blocks",
+     "type": "BOOLEAN",
+     "widget": {
+      "name": "crumbling_blocks"
+     },
+     "link": null
+    },
+    {
+     "localized_name": "boss_at_end",
+     "name": "boss_at_end",
+     "type": "BOOLEAN",
+     "widget": {
+      "name": "boss_at_end"
+     },
+     "link": null
+    },
+    {
+     "localized_name": "seed",
+     "name": "seed",
+     "type": "INT",
+     "widget": {
+      "name": "seed"
+     },
+     "link": null
+    },
+    {
+     "localized_name": "names",
+     "name": "names",
+     "shape": 7,
+     "type": "STRING",
+     "widget": {
+      "name": "names"
+     },
+     "link": null
+    }
+   ],
+   "outputs": [
+    {
+     "localized_name": "levels",
+     "name": "levels",
+     "type": "CG_LEVELS",
+     "links": [
+      3
+     ]
+    },
+    {
+     "localized_name": "maps",
+     "name": "maps",
+     "type": "IMAGE",
+     "links": null
+    }
+   ],
+   "properties": {
+    "Node name for S&R": "ComfyGamePlatformerLevels"
+   },
+   "widgets_values": [
+    2,
+    5,
+    true,
+    true,
+    true,
+    true,
+    true,
+    2,
+    "randomize",
+    ""
+   ],
+   "widgets_values_named": {
+    "count": 2,
+    "length": 5,
+    "spikes": true,
+    "moving_platforms": true,
+    "springs": true,
+    "crumbling_blocks": true,
+    "boss_at_end": true,
+    "seed": 2,
+    "control_after_generate": "randomize",
+    "names": ""
+   },
+   "color": "#2f5a2c",
+   "bgcolor": "#244522"
+  },
+  {
+   "id": 5,
+   "type": "ComfyGameBuild",
+   "pos": [
+    1140,
+    40
+   ],
+   "size": [
+    620,
+    640
+   ],
+   "flags": {},
+   "order": 4,
+   "mode": 0,
+   "inputs": [
+    {
+     "localized_name": "game",
+     "name": "game",
+     "type": "CG_GAME",
+     "link": 1
+    },
+    {
+     "localized_name": "player",
+     "name": "player",
+     "shape": 7,
+     "type": "CG_ACTOR",
+     "link": null
+    },
+    {
+     "localized_name": "enemies",
+     "name": "enemies",
+     "shape": 7,
+     "type": "CG_ROSTER",
+     "link": null
+    },
+    {
+     "localized_name": "boss",
+     "name": "boss",
+     "shape": 7,
+     "type": "CG_ACTOR",
+     "link": null
+    },
+    {
+     "localized_name": "levels",
+     "name": "levels",
+     "shape": 7,
+     "type": "CG_LEVELS",
+     "link": 3
+    },
+    {
+     "localized_name": "tileset",
+     "name": "tileset",
+     "shape": 7,
+     "type": "CG_TILESET",
+     "link": null
+    },
+    {
+     "localized_name": "background",
+     "name": "background",
+     "shape": 7,
+     "type": "CG_BACKDROP",
+     "link": null
+    },
+    {
+     "localized_name": "music",
+     "name": "music",
+     "shape": 7,
+     "type": "CG_MUSIC",
+     "link": null
+    },
+    {
+     "localized_name": "sfx",
+     "name": "sfx",
+     "shape": 7,
+     "type": "CG_SFX",
+     "link": null
+    },
+    {
+     "localized_name": "script",
+     "name": "script",
+     "shape": 7,
+     "type": "STRING",
+     "link": null
+    },
+    {
+     "localized_name": "export_name",
+     "name": "export_name",
+     "shape": 7,
+     "type": "STRING",
+     "widget": {
+      "name": "export_name"
+     },
+     "link": null
+    },
+    {
+     "localized_name": "compress_music",
+     "name": "compress_music",
+     "shape": 7,
+     "type": "BOOLEAN",
+     "widget": {
+      "name": "compress_music"
+     },
+     "link": null
+    }
+   ],
+   "outputs": [
+    {
+     "localized_name": "html_path",
+     "name": "html_path",
+     "type": "STRING",
+     "links": null
+    },
+    {
+     "localized_name": "thumbnail",
+     "name": "thumbnail",
+     "type": "IMAGE",
+     "links": null
+    },
+    {
+     "localized_name": "game",
+     "name": "game",
+     "type": "CG_GAME",
+     "links": null
+    }
+   ],
+   "properties": {
+    "Node name for S&R": "ComfyGameBuild"
+   },
+   "widgets_values": [
+    "",
+    true
+   ],
+   "widgets_values_named": {
+    "export_name": "",
+    "compress_music": true
+   },
+   "color": "#1d4d55",
+   "bgcolor": "#163c42"
+  }
+ ],
+ "links": [
+  [
+   1,
+   2,
+   0,
+   5,
+   0,
+   "CG_GAME"
+  ],
+  [
+   2,
+   3,
+   0,
+   4,
+   0,
+   "CG_LEVELS"
+  ],
+  [
+   3,
+   4,
+   0,
+   5,
+   4,
+   "CG_LEVELS"
+  ]
+ ],
+ "groups": [],
+ "config": {},
+ "extra": {
+  "ds": {
+   "scale": 0.9782608695652174,
+   "offset": [
+    20,
+    114.11111111111109
+   ]
+  }
+ },
+ "version": 0.4
+}

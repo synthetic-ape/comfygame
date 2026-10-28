@@ -106,6 +106,7 @@
           e.t += dt;
           continue;
         }
+        if (e.hp <= 0 && !e.dead) { this.killEnemy(e); continue; }
         TD.updateEnemy(this, e, dt);
         if (!p.dead && !e.dead && overlap(p, e)) this.hurtPlayer(e.dmg, p.x - e.x, p.y - e.y);
       }

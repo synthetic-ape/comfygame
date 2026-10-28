@@ -127,6 +127,7 @@
       this.pending = this.pending.filter((s) => s.t > 0);
       for (const e of this.enemies) {
         if (this.demo) { e.t += dt; continue; }
+        if (e.hp <= 0 && !e.dead) { this.killEnemy(e); continue; }
         TD.updateEnemy(this, e, dt);
         if (!p.dead && !e.dead && overlap(p, e)) this.hurtPlayer(e.dmg, p.x - e.x, p.y - e.y);
       }

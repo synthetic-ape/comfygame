@@ -1,0 +1,1343 @@
+{
+ "id": "00000000-0000-0000-0000-000000000000",
+ "revision": 0,
+ "last_node_id": 8,
+ "last_link_id": 4,
+ "nodes": [
+  {
+   "id": 1,
+   "type": "ComfyGameSetup",
+   "pos": [
+    40,
+    40
+   ],
+   "size": [
+    300,
+    382
+   ],
+   "flags": {},
+   "order": 0,
+   "mode": 0,
+   "inputs": [
+    {
+     "localized_name": "palette",
+     "name": "palette",
+     "shape": 7,
+     "type": "CG_PALETTE",
+     "link": null
+    },
+    {
+     "localized_name": "title",
+     "name": "title",
+     "type": "STRING",
+     "widget": {
+      "name": "title"
+     },
+     "link": null
+    },
+    {
+     "localized_name": "genre",
+     "name": "genre",
+     "type": "COMBO",
+     "widget": {
+      "name": "genre"
+     },
+     "link": null
+    },
+    {
+     "localized_name": "theme",
+     "name": "theme",
+     "type": "COMBO",
+     "widget": {
+      "name": "theme"
+     },
+     "link": null
+    },
+    {
+     "localized_name": "difficulty",
+     "name": "difficulty",
+     "type": "COMBO",
+     "widget": {
+      "name": "difficulty"
+     },
+     "link": null
+    },
+    {
+     "localized_name": "seed",
+     "name": "seed",
+     "type": "INT",
+     "widget": {
+      "name": "seed"
+     },
+     "link": null
+    },
+    {
+     "localized_name": "lives",
+     "name": "lives",
+     "type": "INT",
+     "widget": {
+      "name": "lives"
+     },
+     "link": null
+    },
+    {
+     "localized_name": "tagline",
+     "name": "tagline",
+     "shape": 7,
+     "type": "STRING",
+     "widget": {
+      "name": "tagline"
+     },
+     "link": null
+    },
+    {
+     "localized_name": "intro_story",
+     "name": "intro_story",
+     "shape": 7,
+     "type": "STRING",
+     "widget": {
+      "name": "intro_story"
+     },
+     "link": null
+    },
+    {
+     "localized_name": "ending_text",
+     "name": "ending_text",
+     "shape": 7,
+     "type": "STRING",
+     "widget": {
+      "name": "ending_text"
+     },
+     "link": null
+    },
+    {
+     "localized_name": "crt_filter",
+     "name": "crt_filter",
+     "shape": 7,
+     "type": "BOOLEAN",
+     "widget": {
+      "name": "crt_filter"
+     },
+     "link": null
+    },
+    {
+     "localized_name": "resolution",
+     "name": "resolution",
+     "shape": 7,
+     "type": "COMBO",
+     "widget": {
+      "name": "resolution"
+     },
+     "link": null
+    }
+   ],
+   "outputs": [
+    {
+     "localized_name": "game",
+     "name": "game",
+     "type": "CG_GAME",
+     "links": [
+      1
+     ]
+    }
+   ],
+   "properties": {
+    "Node name for S&R": "ComfyGameSetup"
+   },
+   "widgets_values": [
+    "Moss Knight",
+    "platformer",
+    "forest",
+    "normal",
+    3,
+    "fixed",
+    3,
+    "",
+    "",
+    "",
+    false,
+    "480x270"
+   ],
+   "widgets_values_named": {
+    "title": "Moss Knight",
+    "genre": "platformer",
+    "theme": "forest",
+    "difficulty": "normal",
+    "seed": 3,
+    "control_after_generate": "fixed",
+    "lives": 3,
+    "tagline": "",
+    "intro_story": "",
+    "ending_text": "",
+    "crt_filter": false,
+    "resolution": "480x270"
+   },
+   "color": "#1d4d55",
+   "bgcolor": "#163c42"
+  },
+  {
+   "id": 2,
+   "type": "ComfyGameBuild",
+   "pos": [
+    440,
+    40
+   ],
+   "size": [
+    560,
+    560
+   ],
+   "flags": {},
+   "order": 1,
+   "mode": 0,
+   "inputs": [
+    {
+     "localized_name": "game",
+     "name": "game",
+     "type": "CG_GAME",
+     "link": 1
+    },
+    {
+     "localized_name": "player",
+     "name": "player",
+     "shape": 7,
+     "type": "CG_ACTOR",
+     "link": null
+    },
+    {
+     "localized_name": "enemies",
+     "name": "enemies",
+     "shape": 7,
+     "type": "CG_ROSTER",
+     "link": null
+    },
+    {
+     "localized_name": "boss",
+     "name": "boss",
+     "shape": 7,
+     "type": "CG_ACTOR",
+     "link": null
+    },
+    {
+     "localized_name": "levels",
+     "name": "levels",
+     "shape": 7,
+     "type": "CG_LEVELS",
+     "link": null
+    },
+    {
+     "localized_name": "tileset",
+     "name": "tileset",
+     "shape": 7,
+     "type": "CG_TILESET",
+     "link": null
+    },
+    {
+     "localized_name": "background",
+     "name": "background",
+     "shape": 7,
+     "type": "CG_BACKDROP",
+     "link": null
+    },
+    {
+     "localized_name": "music",
+     "name": "music",
+     "shape": 7,
+     "type": "CG_MUSIC",
+     "link": null
+    },
+    {
+     "localized_name": "sfx",
+     "name": "sfx",
+     "shape": 7,
+     "type": "CG_SFX",
+     "link": null
+    },
+    {
+     "localized_name": "script",
+     "name": "script",
+     "shape": 7,
+     "type": "STRING",
+     "link": null
+    },
+    {
+     "localized_name": "export_name",
+     "name": "export_name",
+     "shape": 7,
+     "type": "STRING",
+     "widget": {
+      "name": "export_name"
+     },
+     "link": null
+    },
+    {
+     "localized_name": "compress_music",
+     "name": "compress_music",
+     "shape": 7,
+     "type": "BOOLEAN",
+     "widget": {
+      "name": "compress_music"
+     },
+     "link": null
+    }
+   ],
+   "outputs": [
+    {
+     "localized_name": "html_path",
+     "name": "html_path",
+     "type": "STRING",
+     "links": null
+    },
+    {
+     "localized_name": "thumbnail",
+     "name": "thumbnail",
+     "type": "IMAGE",
+     "links": null
+    },
+    {
+     "localized_name": "game",
+     "name": "game",
+     "type": "CG_GAME",
+     "links": null
+    }
+   ],
+   "properties": {
+    "Node name for S&R": "ComfyGameBuild"
+   },
+   "widgets_values": [
+    "",
+    true
+   ],
+   "widgets_values_named": {
+    "export_name": "",
+    "compress_music": true
+   },
+   "color": "#1d4d55",
+   "bgcolor": "#163c42"
+  },
+  {
+   "id": 3,
+   "type": "ComfyGameSetup",
+   "pos": [
+    1060,
+    40
+   ],
+   "size": [
+    300,
+    382
+   ],
+   "flags": {},
+   "order": 2,
+   "mode": 0,
+   "inputs": [
+    {
+     "localized_name": "palette",
+     "name": "palette",
+     "shape": 7,
+     "type": "CG_PALETTE",
+     "link": null
+    },
+    {
+     "localized_name": "title",
+     "name": "title",
+     "type": "STRING",
+     "widget": {
+      "name": "title"
+     },
+     "link": null
+    },
+    {
+     "localized_name": "genre",
+     "name": "genre",
+     "type": "COMBO",
+     "widget": {
+      "name": "genre"
+     },
+     "link": null
+    },
+    {
+     "localized_name": "theme",
+     "name": "theme",
+     "type": "COMBO",
+     "widget": {
+      "name": "theme"
+     },
+     "link": null
+    },
+    {
+     "localized_name": "difficulty",
+     "name": "difficulty",
+     "type": "COMBO",
+     "widget": {
+      "name": "difficulty"
+     },
+     "link": null
+    },
+    {
+     "localized_name": "seed",
+     "name": "seed",
+     "type": "INT",
+     "widget": {
+      "name": "seed"
+     },
+     "link": null
+    },
+    {
+     "localized_name": "lives",
+     "name": "lives",
+     "type": "INT",
+     "widget": {
+      "name": "lives"
+     },
+     "link": null
+    },
+    {
+     "localized_name": "tagline",
+     "name": "tagline",
+     "shape": 7,
+     "type": "STRING",
+     "widget": {
+      "name": "tagline"
+     },
+     "link": null
+    },
+    {
+     "localized_name": "intro_story",
+     "name": "intro_story",
+     "shape": 7,
+     "type": "STRING",
+     "widget": {
+      "name": "intro_story"
+     },
+     "link": null
+    },
+    {
+     "localized_name": "ending_text",
+     "name": "ending_text",
+     "shape": 7,
+     "type": "STRING",
+     "widget": {
+      "name": "ending_text"
+     },
+     "link": null
+    },
+    {
+     "localized_name": "crt_filter",
+     "name": "crt_filter",
+     "shape": 7,
+     "type": "BOOLEAN",
+     "widget": {
+      "name": "crt_filter"
+     },
+     "link": null
+    },
+    {
+     "localized_name": "resolution",
+     "name": "resolution",
+     "shape": 7,
+     "type": "COMBO",
+     "widget": {
+      "name": "resolution"
+     },
+     "link": null
+    }
+   ],
+   "outputs": [
+    {
+     "localized_name": "game",
+     "name": "game",
+     "type": "CG_GAME",
+     "links": [
+      2
+     ]
+    }
+   ],
+   "properties": {
+    "Node name for S&R": "ComfyGameSetup"
+   },
+   "widgets_values": [
+    "Ember Arena",
+    "arena",
+    "volcano",
+    "normal",
+    8,
+    "fixed",
+    3,
+    "Leap from peak to peak.",
+    "The sky crystals were stolen from the mountain shrine. Rusty the fox grabs a scarf and starts climbing.",
+    "The crystals glow again. Rusty naps on the highest peak, very proud.",
+    false,
+    "480x270"
+   ],
+   "widgets_values_named": {
+    "title": "Ember Arena",
+    "genre": "arena",
+    "theme": "volcano",
+    "difficulty": "normal",
+    "seed": 8,
+    "control_after_generate": "fixed",
+    "lives": 3,
+    "tagline": "Leap from peak to peak.",
+    "intro_story": "The sky crystals were stolen from the mountain shrine. Rusty the fox grabs a scarf and starts climbing.",
+    "ending_text": "The crystals glow again. Rusty naps on the highest peak, very proud.",
+    "crt_filter": false,
+    "resolution": "480x270"
+   },
+   "color": "#1d4d55",
+   "bgcolor": "#163c42"
+  },
+  {
+   "id": 4,
+   "type": "ComfyGameBuild",
+   "pos": [
+    1460,
+    40
+   ],
+   "size": [
+    560,
+    560
+   ],
+   "flags": {},
+   "order": 3,
+   "mode": 0,
+   "inputs": [
+    {
+     "localized_name": "game",
+     "name": "game",
+     "type": "CG_GAME",
+     "link": 2
+    },
+    {
+     "localized_name": "player",
+     "name": "player",
+     "shape": 7,
+     "type": "CG_ACTOR",
+     "link": null
+    },
+    {
+     "localized_name": "enemies",
+     "name": "enemies",
+     "shape": 7,
+     "type": "CG_ROSTER",
+     "link": null
+    },
+    {
+     "localized_name": "boss",
+     "name": "boss",
+     "shape": 7,
+     "type": "CG_ACTOR",
+     "link": null
+    },
+    {
+     "localized_name": "levels",
+     "name": "levels",
+     "shape": 7,
+     "type": "CG_LEVELS",
+     "link": null
+    },
+    {
+     "localized_name": "tileset",
+     "name": "tileset",
+     "shape": 7,
+     "type": "CG_TILESET",
+     "link": null
+    },
+    {
+     "localized_name": "background",
+     "name": "background",
+     "shape": 7,
+     "type": "CG_BACKDROP",
+     "link": null
+    },
+    {
+     "localized_name": "music",
+     "name": "music",
+     "shape": 7,
+     "type": "CG_MUSIC",
+     "link": null
+    },
+    {
+     "localized_name": "sfx",
+     "name": "sfx",
+     "shape": 7,
+     "type": "CG_SFX",
+     "link": null
+    },
+    {
+     "localized_name": "script",
+     "name": "script",
+     "shape": 7,
+     "type": "STRING",
+     "link": null
+    },
+    {
+     "localized_name": "export_name",
+     "name": "export_name",
+     "shape": 7,
+     "type": "STRING",
+     "widget": {
+      "name": "export_name"
+     },
+     "link": null
+    },
+    {
+     "localized_name": "compress_music",
+     "name": "compress_music",
+     "shape": 7,
+     "type": "BOOLEAN",
+     "widget": {
+      "name": "compress_music"
+     },
+     "link": null
+    }
+   ],
+   "outputs": [
+    {
+     "localized_name": "html_path",
+     "name": "html_path",
+     "type": "STRING",
+     "links": null
+    },
+    {
+     "localized_name": "thumbnail",
+     "name": "thumbnail",
+     "type": "IMAGE",
+     "links": null
+    },
+    {
+     "localized_name": "game",
+     "name": "game",
+     "type": "CG_GAME",
+     "links": null
+    }
+   ],
+   "properties": {
+    "Node name for S&R": "ComfyGameBuild"
+   },
+   "widgets_values": [
+    "",
+    true
+   ],
+   "widgets_values_named": {
+    "export_name": "",
+    "compress_music": true
+   },
+   "color": "#1d4d55",
+   "bgcolor": "#163c42"
+  },
+  {
+   "id": 5,
+   "type": "ComfyGameSetup",
+   "pos": [
+    40,
+    700
+   ],
+   "size": [
+    300,
+    382
+   ],
+   "flags": {},
+   "order": 4,
+   "mode": 0,
+   "inputs": [
+    {
+     "localized_name": "palette",
+     "name": "palette",
+     "shape": 7,
+     "type": "CG_PALETTE",
+     "link": null
+    },
+    {
+     "localized_name": "title",
+     "name": "title",
+     "type": "STRING",
+     "widget": {
+      "name": "title"
+     },
+     "link": null
+    },
+    {
+     "localized_name": "genre",
+     "name": "genre",
+     "type": "COMBO",
+     "widget": {
+      "name": "genre"
+     },
+     "link": null
+    },
+    {
+     "localized_name": "theme",
+     "name": "theme",
+     "type": "COMBO",
+     "widget": {
+      "name": "theme"
+     },
+     "link": null
+    },
+    {
+     "localized_name": "difficulty",
+     "name": "difficulty",
+     "type": "COMBO",
+     "widget": {
+      "name": "difficulty"
+     },
+     "link": null
+    },
+    {
+     "localized_name": "seed",
+     "name": "seed",
+     "type": "INT",
+     "widget": {
+      "name": "seed"
+     },
+     "link": null
+    },
+    {
+     "localized_name": "lives",
+     "name": "lives",
+     "type": "INT",
+     "widget": {
+      "name": "lives"
+     },
+     "link": null
+    },
+    {
+     "localized_name": "tagline",
+     "name": "tagline",
+     "shape": 7,
+     "type": "STRING",
+     "widget": {
+      "name": "tagline"
+     },
+     "link": null
+    },
+    {
+     "localized_name": "intro_story",
+     "name": "intro_story",
+     "shape": 7,
+     "type": "STRING",
+     "widget": {
+      "name": "intro_story"
+     },
+     "link": null
+    },
+    {
+     "localized_name": "ending_text",
+     "name": "ending_text",
+     "shape": 7,
+     "type": "STRING",
+     "widget": {
+      "name": "ending_text"
+     },
+     "link": null
+    },
+    {
+     "localized_name": "crt_filter",
+     "name": "crt_filter",
+     "shape": 7,
+     "type": "BOOLEAN",
+     "widget": {
+      "name": "crt_filter"
+     },
+     "link": null
+    },
+    {
+     "localized_name": "resolution",
+     "name": "resolution",
+     "shape": 7,
+     "type": "COMBO",
+     "widget": {
+      "name": "resolution"
+     },
+     "link": null
+    }
+   ],
+   "outputs": [
+    {
+     "localized_name": "game",
+     "name": "game",
+     "type": "CG_GAME",
+     "links": [
+      3
+     ]
+    }
+   ],
+   "properties": {
+    "Node name for S&R": "ComfyGameSetup"
+   },
+   "widgets_values": [
+    "Crypt Crawler",
+    "dungeon",
+    "castle",
+    "normal",
+    5,
+    "fixed",
+    3,
+    "",
+    "",
+    "",
+    false,
+    "480x270"
+   ],
+   "widgets_values_named": {
+    "title": "Crypt Crawler",
+    "genre": "dungeon",
+    "theme": "castle",
+    "difficulty": "normal",
+    "seed": 5,
+    "control_after_generate": "fixed",
+    "lives": 3,
+    "tagline": "",
+    "intro_story": "",
+    "ending_text": "",
+    "crt_filter": false,
+    "resolution": "480x270"
+   },
+   "color": "#1d4d55",
+   "bgcolor": "#163c42"
+  },
+  {
+   "id": 6,
+   "type": "ComfyGameBuild",
+   "pos": [
+    440,
+    700
+   ],
+   "size": [
+    560,
+    560
+   ],
+   "flags": {},
+   "order": 5,
+   "mode": 0,
+   "inputs": [
+    {
+     "localized_name": "game",
+     "name": "game",
+     "type": "CG_GAME",
+     "link": 3
+    },
+    {
+     "localized_name": "player",
+     "name": "player",
+     "shape": 7,
+     "type": "CG_ACTOR",
+     "link": null
+    },
+    {
+     "localized_name": "enemies",
+     "name": "enemies",
+     "shape": 7,
+     "type": "CG_ROSTER",
+     "link": null
+    },
+    {
+     "localized_name": "boss",
+     "name": "boss",
+     "shape": 7,
+     "type": "CG_ACTOR",
+     "link": null
+    },
+    {
+     "localized_name": "levels",
+     "name": "levels",
+     "shape": 7,
+     "type": "CG_LEVELS",
+     "link": null
+    },
+    {
+     "localized_name": "tileset",
+     "name": "tileset",
+     "shape": 7,
+     "type": "CG_TILESET",
+     "link": null
+    },
+    {
+     "localized_name": "background",
+     "name": "background",
+     "shape": 7,
+     "type": "CG_BACKDROP",
+     "link": null
+    },
+    {
+     "localized_name": "music",
+     "name": "music",
+     "shape": 7,
+     "type": "CG_MUSIC",
+     "link": null
+    },
+    {
+     "localized_name": "sfx",
+     "name": "sfx",
+     "shape": 7,
+     "type": "CG_SFX",
+     "link": null
+    },
+    {
+     "localized_name": "script",
+     "name": "script",
+     "shape": 7,
+     "type": "STRING",
+     "link": null
+    },
+    {
+     "localized_name": "export_name",
+     "name": "export_name",
+     "shape": 7,
+     "type": "STRING",
+     "widget": {
+      "name": "export_name"
+     },
+     "link": null
+    },
+    {
+     "localized_name": "compress_music",
+     "name": "compress_music",
+     "shape": 7,
+     "type": "BOOLEAN",
+     "widget": {
+      "name": "compress_music"
+     },
+     "link": null
+    }
+   ],
+   "outputs": [
+    {
+     "localized_name": "html_path",
+     "name": "html_path",
+     "type": "STRING",
+     "links": null
+    },
+    {
+     "localized_name": "thumbnail",
+     "name": "thumbnail",
+     "type": "IMAGE",
+     "links": null
+    },
+    {
+     "localized_name": "game",
+     "name": "game",
+     "type": "CG_GAME",
+     "links": null
+    }
+   ],
+   "properties": {
+    "Node name for S&R": "ComfyGameBuild"
+   },
+   "widgets_values": [
+    "",
+    true
+   ],
+   "widgets_values_named": {
+    "export_name": "",
+    "compress_music": true
+   },
+   "color": "#1d4d55",
+   "bgcolor": "#163c42"
+  },
+  {
+   "id": 7,
+   "type": "ComfyGameSetup",
+   "pos": [
+    1060,
+    700
+   ],
+   "size": [
+    300,
+    382
+   ],
+   "flags": {},
+   "order": 6,
+   "mode": 0,
+   "inputs": [
+    {
+     "localized_name": "palette",
+     "name": "palette",
+     "shape": 7,
+     "type": "CG_PALETTE",
+     "link": null
+    },
+    {
+     "localized_name": "title",
+     "name": "title",
+     "type": "STRING",
+     "widget": {
+      "name": "title"
+     },
+     "link": null
+    },
+    {
+     "localized_name": "genre",
+     "name": "genre",
+     "type": "COMBO",
+     "widget": {
+      "name": "genre"
+     },
+     "link": null
+    },
+    {
+     "localized_name": "theme",
+     "name": "theme",
+     "type": "COMBO",
+     "widget": {
+      "name": "theme"
+     },
+     "link": null
+    },
+    {
+     "localized_name": "difficulty",
+     "name": "difficulty",
+     "type": "COMBO",
+     "widget": {
+      "name": "difficulty"
+     },
+     "link": null
+    },
+    {
+     "localized_name": "seed",
+     "name": "seed",
+     "type": "INT",
+     "widget": {
+      "name": "seed"
+     },
+     "link": null
+    },
+    {
+     "localized_name": "lives",
+     "name": "lives",
+     "type": "INT",
+     "widget": {
+      "name": "lives"
+     },
+     "link": null
+    },
+    {
+     "localized_name": "tagline",
+     "name": "tagline",
+     "shape": 7,
+     "type": "STRING",
+     "widget": {
+      "name": "tagline"
+     },
+     "link": null
+    },
+    {
+     "localized_name": "intro_story",
+     "name": "intro_story",
+     "shape": 7,
+     "type": "STRING",
+     "widget": {
+      "name": "intro_story"
+     },
+     "link": null
+    },
+    {
+     "localized_name": "ending_text",
+     "name": "ending_text",
+     "shape": 7,
+     "type": "STRING",
+     "widget": {
+      "name": "ending_text"
+     },
+     "link": null
+    },
+    {
+     "localized_name": "crt_filter",
+     "name": "crt_filter",
+     "shape": 7,
+     "type": "BOOLEAN",
+     "widget": {
+      "name": "crt_filter"
+     },
+     "link": null
+    },
+    {
+     "localized_name": "resolution",
+     "name": "resolution",
+     "shape": 7,
+     "type": "COMBO",
+     "widget": {
+      "name": "resolution"
+     },
+     "link": null
+    }
+   ],
+   "outputs": [
+    {
+     "localized_name": "game",
+     "name": "game",
+     "type": "CG_GAME",
+     "links": [
+      4
+     ]
+    }
+   ],
+   "properties": {
+    "Node name for S&R": "ComfyGameSetup"
+   },
+   "widgets_values": [
+    "Nova Strike",
+    "shmup",
+    "space",
+    "normal",
+    2,
+    "fixed",
+    3,
+    "",
+    "",
+    "",
+    false,
+    "480x270"
+   ],
+   "widgets_values_named": {
+    "title": "Nova Strike",
+    "genre": "shmup",
+    "theme": "space",
+    "difficulty": "normal",
+    "seed": 2,
+    "control_after_generate": "fixed",
+    "lives": 3,
+    "tagline": "",
+    "intro_story": "",
+    "ending_text": "",
+    "crt_filter": false,
+    "resolution": "480x270"
+   },
+   "color": "#1d4d55",
+   "bgcolor": "#163c42"
+  },
+  {
+   "id": 8,
+   "type": "ComfyGameBuild",
+   "pos": [
+    1460,
+    700
+   ],
+   "size": [
+    560,
+    560
+   ],
+   "flags": {},
+   "order": 7,
+   "mode": 0,
+   "inputs": [
+    {
+     "localized_name": "game",
+     "name": "game",
+     "type": "CG_GAME",
+     "link": 4
+    },
+    {
+     "localized_name": "player",
+     "name": "player",
+     "shape": 7,
+     "type": "CG_ACTOR",
+     "link": null
+    },
+    {
+     "localized_name": "enemies",
+     "name": "enemies",
+     "shape": 7,
+     "type": "CG_ROSTER",
+     "link": null
+    },
+    {
+     "localized_name": "boss",
+     "name": "boss",
+     "shape": 7,
+     "type": "CG_ACTOR",
+     "link": null
+    },
+    {
+     "localized_name": "levels",
+     "name": "levels",
+     "shape": 7,
+     "type": "CG_LEVELS",
+     "link": null
+    },
+    {
+     "localized_name": "tileset",
+     "name": "tileset",
+     "shape": 7,
+     "type": "CG_TILESET",
+     "link": null
+    },
+    {
+     "localized_name": "background",
+     "name": "background",
+     "shape": 7,
+     "type": "CG_BACKDROP",
+     "link": null
+    },
+    {
+     "localized_name": "music",
+     "name": "music",
+     "shape": 7,
+     "type": "CG_MUSIC",
+     "link": null
+    },
+    {
+     "localized_name": "sfx",
+     "name": "sfx",
+     "shape": 7,
+     "type": "CG_SFX",
+     "link": null
+    },
+    {
+     "localized_name": "script",
+     "name": "script",
+     "shape": 7,
+     "type": "STRING",
+     "link": null
+    },
+    {
+     "localized_name": "export_name",
+     "name": "export_name",
+     "shape": 7,
+     "type": "STRING",
+     "widget": {
+      "name": "export_name"
+     },
+     "link": null
+    },
+    {
+     "localized_name": "compress_music",
+     "name": "compress_music",
+     "shape": 7,
+     "type": "BOOLEAN",
+     "widget": {
+      "name": "compress_music"
+     },
+     "link": null
+    }
+   ],
+   "outputs": [
+    {
+     "localized_name": "html_path",
+     "name": "html_path",
+     "type": "STRING",
+     "links": null
+    },
+    {
+     "localized_name": "thumbnail",
+     "name": "thumbnail",
+     "type": "IMAGE",
+     "links": null
+    },
+    {
+     "localized_name": "game",
+     "name": "game",
+     "type": "CG_GAME",
+     "links": null
+    }
+   ],
+   "properties": {
+    "Node name for S&R": "ComfyGameBuild"
+   },
+   "widgets_values": [
+    "",
+    true
+   ],
+   "widgets_values_named": {
+    "export_name": "",
+    "compress_music": true
+   },
+   "color": "#1d4d55",
+   "bgcolor": "#163c42"
+  }
+ ],
+ "links": [
+  [
+   1,
+   1,
+   0,
+   2,
+   0,
+   "CG_GAME"
+  ],
+  [
+   2,
+   3,
+   0,
+   4,
+   0,
+   "CG_GAME"
+  ],
+  [
+   3,
+   5,
+   0,
+   6,
+   0,
+   "CG_GAME"
+  ],
+  [
+   4,
+   7,
+   0,
+   8,
+   0,
+   "CG_GAME"
+  ]
+ ],
+ "groups": [
+  {
+   "id": 1,
+   "title": "Platformer",
+   "bounding": [
+    16,
+    -40,
+    1008,
+    664
+   ],
+   "color": "#2f5a2c",
+   "flags": {}
+  },
+  {
+   "id": 2,
+   "title": "Arena survivor",
+   "bounding": [
+    1036,
+    -40,
+    1008,
+    664
+   ],
+   "color": "#6a3d1e",
+   "flags": {}
+  },
+  {
+   "id": 3,
+   "title": "Dungeon crawler",
+   "bounding": [
+    16,
+    620,
+    1008,
+    664
+   ],
+   "color": "#5b3170",
+   "flags": {}
+  },
+  {
+   "id": 4,
+   "title": "Space shooter",
+   "bounding": [
+    1036,
+    620,
+    1008,
+    664
+   ],
+   "color": "#26457a",
+   "flags": {}
+  }
+ ],
+ "config": {},
+ "extra": {
+  "ds": {
+   "scale": 0.7142857142857143,
+   "offset": [
+    230,
+    80
+   ]
+  }
+ },
+ "version": 0.4
+}

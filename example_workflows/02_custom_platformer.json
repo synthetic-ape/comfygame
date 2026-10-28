@@ -1,0 +1,2471 @@
+{
+ "id": "00000000-0000-0000-0000-000000000000",
+ "revision": 0,
+ "last_node_id": 23,
+ "last_link_id": 21,
+ "nodes": [
+  {
+   "id": 1,
+   "type": "MarkdownNote",
+   "pos": [
+    40,
+    -380
+   ],
+   "size": [
+    560,
+    300
+   ],
+   "flags": {},
+   "order": 0,
+   "mode": 0,
+   "inputs": [],
+   "outputs": [],
+   "properties": {},
+   "widgets_values": [
+    "# Every part is a node\n\nThis graph builds a platformer from parts. Swap any of them: connect **Sprite From Image** instead of a procedural sprite, use **Music From Audio** with any audio model, chain more **Enemy** nodes, add your own **Level From Text**.\n\nUnconnected palettes: procedural art is recoloured to the game palette automatically."
+   ],
+   "widgets_values_named": {
+    "text": "# Every part is a node\n\nThis graph builds a platformer from parts. Swap any of them: connect **Sprite From Image** instead of a procedural sprite, use **Music From Audio** with any audio model, chain more **Enemy** nodes, add your own **Level From Text**.\n\nUnconnected palettes: procedural art is recoloured to the game palette automatically."
+   },
+   "color": "#432",
+   "bgcolor": "#653"
+  },
+  {
+   "id": 2,
+   "type": "ComfyGamePalette",
+   "pos": [
+    40,
+    40
+   ],
+   "size": [
+    300,
+    102
+   ],
+   "flags": {},
+   "order": 1,
+   "mode": 0,
+   "inputs": [
+    {
+     "localized_name": "preset",
+     "name": "preset",
+     "type": "COMBO",
+     "widget": {
+      "name": "preset"
+     },
+     "link": null
+    },
+    {
+     "localized_name": "custom_hex",
+     "name": "custom_hex",
+     "shape": 7,
+     "type": "STRING",
+     "widget": {
+      "name": "custom_hex"
+     },
+     "link": null
+    }
+   ],
+   "outputs": [
+    {
+     "localized_name": "palette",
+     "name": "palette",
+     "type": "CG_PALETTE",
+     "links": [
+      1
+     ]
+    },
+    {
+     "localized_name": "swatch",
+     "name": "swatch",
+     "type": "IMAGE",
+     "links": null
+    }
+   ],
+   "properties": {
+    "Node name for S&R": "ComfyGamePalette"
+   },
+   "widgets_values": [
+    "sweetie16",
+    ""
+   ],
+   "widgets_values_named": {
+    "preset": "sweetie16",
+    "custom_hex": ""
+   },
+   "color": "#5b3170",
+   "bgcolor": "#462656"
+  },
+  {
+   "id": 3,
+   "type": "ComfyGameSetup",
+   "pos": [
+    420,
+    40
+   ],
+   "size": [
+    300,
+    382
+   ],
+   "flags": {},
+   "order": 2,
+   "mode": 0,
+   "inputs": [
+    {
+     "localized_name": "palette",
+     "name": "palette",
+     "shape": 7,
+     "type": "CG_PALETTE",
+     "link": 1
+    },
+    {
+     "localized_name": "title",
+     "name": "title",
+     "type": "STRING",
+     "widget": {
+      "name": "title"
+     },
+     "link": null
+    },
+    {
+     "localized_name": "genre",
+     "name": "genre",
+     "type": "COMBO",
+     "widget": {
+      "name": "genre"
+     },
+     "link": null
+    },
+    {
+     "localized_name": "theme",
+     "name": "theme",
+     "type": "COMBO",
+     "widget": {
+      "name": "theme"
+     },
+     "link": null
+    },
+    {
+     "localized_name": "difficulty",
+     "name": "difficulty",
+     "type": "COMBO",
+     "widget": {
+      "name": "difficulty"
+     },
+     "link": null
+    },
+    {
+     "localized_name": "seed",
+     "name": "seed",
+     "type": "INT",
+     "widget": {
+      "name": "seed"
+     },
+     "link": null
+    },
+    {
+     "localized_name": "lives",
+     "name": "lives",
+     "type": "INT",
+     "widget": {
+      "name": "lives"
+     },
+     "link": null
+    },
+    {
+     "localized_name": "tagline",
+     "name": "tagline",
+     "shape": 7,
+     "type": "STRING",
+     "widget": {
+      "name": "tagline"
+     },
+     "link": null
+    },
+    {
+     "localized_name": "intro_story",
+     "name": "intro_story",
+     "shape": 7,
+     "type": "STRING",
+     "widget": {
+      "name": "intro_story"
+     },
+     "link": null
+    },
+    {
+     "localized_name": "ending_text",
+     "name": "ending_text",
+     "shape": 7,
+     "type": "STRING",
+     "widget": {
+      "name": "ending_text"
+     },
+     "link": null
+    },
+    {
+     "localized_name": "crt_filter",
+     "name": "crt_filter",
+     "shape": 7,
+     "type": "BOOLEAN",
+     "widget": {
+      "name": "crt_filter"
+     },
+     "link": null
+    },
+    {
+     "localized_name": "resolution",
+     "name": "resolution",
+     "shape": 7,
+     "type": "COMBO",
+     "widget": {
+      "name": "resolution"
+     },
+     "link": null
+    }
+   ],
+   "outputs": [
+    {
+     "localized_name": "game",
+     "name": "game",
+     "type": "CG_GAME",
+     "links": [
+      2
+     ]
+    }
+   ],
+   "properties": {
+    "Node name for S&R": "ComfyGameSetup"
+   },
+   "widgets_values": [
+    "Sky Fox",
+    "platformer",
+    "mountains",
+    "normal",
+    21,
+    "fixed",
+    3,
+    "Leap from peak to peak.",
+    "The sky crystals were stolen from the mountain shrine. Rusty the fox grabs a scarf and starts climbing.",
+    "The crystals glow again. Rusty naps on the highest peak, very proud.",
+    false,
+    "480x270"
+   ],
+   "widgets_values_named": {
+    "title": "Sky Fox",
+    "genre": "platformer",
+    "theme": "mountains",
+    "difficulty": "normal",
+    "seed": 21,
+    "control_after_generate": "fixed",
+    "lives": 3,
+    "tagline": "Leap from peak to peak.",
+    "intro_story": "The sky crystals were stolen from the mountain shrine. Rusty the fox grabs a scarf and starts climbing.",
+    "ending_text": "The crystals glow again. Rusty naps on the highest peak, very proud.",
+    "crt_filter": false,
+    "resolution": "480x270"
+   },
+   "color": "#1d4d55",
+   "bgcolor": "#163c42"
+  },
+  {
+   "id": 4,
+   "type": "ComfyGameTileset",
+   "pos": [
+    860,
+    40
+   ],
+   "size": [
+    300,
+    126
+   ],
+   "flags": {},
+   "order": 3,
+   "mode": 0,
+   "inputs": [
+    {
+     "localized_name": "palette",
+     "name": "palette",
+     "shape": 7,
+     "type": "CG_PALETTE",
+     "link": null
+    },
+    {
+     "localized_name": "style",
+     "name": "style",
+     "type": "COMBO",
+     "widget": {
+      "name": "style"
+     },
+     "link": null
+    },
+    {
+     "localized_name": "seed",
+     "name": "seed",
+     "type": "INT",
+     "widget": {
+      "name": "seed"
+     },
+     "link": null
+    }
+   ],
+   "outputs": [
+    {
+     "localized_name": "tileset",
+     "name": "tileset",
+     "type": "CG_TILESET",
+     "links": [
+      3
+     ]
+    },
+    {
+     "localized_name": "sheet",
+     "name": "sheet",
+     "type": "IMAGE",
+     "links": null
+    }
+   ],
+   "properties": {
+    "Node name for S&R": "ComfyGameTileset"
+   },
+   "widgets_values": [
+    "stone",
+    2,
+    "randomize"
+   ],
+   "widgets_values_named": {
+    "style": "stone",
+    "seed": 2,
+    "control_after_generate": "randomize"
+   },
+   "color": "#5b3170",
+   "bgcolor": "#462656"
+  },
+  {
+   "id": 5,
+   "type": "ComfyGameBackground",
+   "pos": [
+    1220,
+    40
+   ],
+   "size": [
+    300,
+    126
+   ],
+   "flags": {},
+   "order": 4,
+   "mode": 0,
+   "inputs": [
+    {
+     "localized_name": "palette",
+     "name": "palette",
+     "shape": 7,
+     "type": "CG_PALETTE",
+     "link": null
+    },
+    {
+     "localized_name": "theme",
+     "name": "theme",
+     "type": "COMBO",
+     "widget": {
+      "name": "theme"
+     },
+     "link": null
+    },
+    {
+     "localized_name": "seed",
+     "name": "seed",
+     "type": "INT",
+     "widget": {
+      "name": "seed"
+     },
+     "link": null
+    }
+   ],
+   "outputs": [
+    {
+     "localized_name": "background",
+     "name": "background",
+     "type": "CG_BACKDROP",
+     "links": [
+      4
+     ]
+    },
+    {
+     "localized_name": "preview",
+     "name": "preview",
+     "type": "IMAGE",
+     "links": null
+    }
+   ],
+   "properties": {
+    "Node name for S&R": "ComfyGameBackground"
+   },
+   "widgets_values": [
+    "mountains",
+    4,
+    "fixed"
+   ],
+   "widgets_values_named": {
+    "theme": "mountains",
+    "seed": 4,
+    "control_after_generate": "fixed"
+   },
+   "color": "#5b3170",
+   "bgcolor": "#462656"
+  },
+  {
+   "id": 6,
+   "type": "ComfyGamePixelSprite",
+   "pos": [
+    40,
+    620
+   ],
+   "size": [
+    300,
+    126
+   ],
+   "flags": {},
+   "order": 5,
+   "mode": 0,
+   "inputs": [
+    {
+     "localized_name": "palette",
+     "name": "palette",
+     "shape": 7,
+     "type": "CG_PALETTE",
+     "link": null
+    },
+    {
+     "localized_name": "kind",
+     "name": "kind",
+     "type": "COMBO",
+     "widget": {
+      "name": "kind"
+     },
+     "link": null
+    },
+    {
+     "localized_name": "seed",
+     "name": "seed",
+     "type": "INT",
+     "widget": {
+      "name": "seed"
+     },
+     "link": null
+    }
+   ],
+   "outputs": [
+    {
+     "localized_name": "sprite",
+     "name": "sprite",
+     "type": "CG_SPRITE",
+     "links": [
+      5
+     ]
+    },
+    {
+     "localized_name": "sheet",
+     "name": "sheet",
+     "type": "IMAGE",
+     "links": null
+    }
+   ],
+   "properties": {
+    "Node name for S&R": "ComfyGamePixelSprite"
+   },
+   "widgets_values": [
+    "fox",
+    0,
+    "fixed"
+   ],
+   "widgets_values_named": {
+    "kind": "fox",
+    "seed": 0,
+    "control_after_generate": "fixed"
+   },
+   "color": "#5b3170",
+   "bgcolor": "#462656"
+  },
+  {
+   "id": 7,
+   "type": "ComfyGamePlayer",
+   "pos": [
+    420,
+    620
+   ],
+   "size": [
+    300,
+    274
+   ],
+   "flags": {},
+   "order": 6,
+   "mode": 0,
+   "inputs": [
+    {
+     "localized_name": "sprite",
+     "name": "sprite",
+     "shape": 7,
+     "type": "CG_SPRITE",
+     "link": 5
+    },
+    {
+     "localized_name": "name",
+     "name": "name",
+     "type": "STRING",
+     "widget": {
+      "name": "name"
+     },
+     "link": null
+    },
+    {
+     "localized_name": "look",
+     "name": "look",
+     "type": "COMBO",
+     "widget": {
+      "name": "look"
+     },
+     "link": null
+    },
+    {
+     "localized_name": "hp",
+     "name": "hp",
+     "type": "INT",
+     "widget": {
+      "name": "hp"
+     },
+     "link": null
+    },
+    {
+     "localized_name": "speed",
+     "name": "speed",
+     "type": "FLOAT",
+     "widget": {
+      "name": "speed"
+     },
+     "link": null
+    },
+    {
+     "localized_name": "jump",
+     "name": "jump",
+     "type": "FLOAT",
+     "widget": {
+      "name": "jump"
+     },
+     "link": null
+    },
+    {
+     "localized_name": "double_jump",
+     "name": "double_jump",
+     "type": "BOOLEAN",
+     "widget": {
+      "name": "double_jump"
+     },
+     "link": null
+    },
+    {
+     "localized_name": "dash",
+     "name": "dash",
+     "type": "BOOLEAN",
+     "widget": {
+      "name": "dash"
+     },
+     "link": null
+    },
+    {
+     "localized_name": "wall_jump",
+     "name": "wall_jump",
+     "type": "BOOLEAN",
+     "widget": {
+      "name": "wall_jump"
+     },
+     "link": null
+    },
+    {
+     "localized_name": "shoot",
+     "name": "shoot",
+     "type": "BOOLEAN",
+     "widget": {
+      "name": "shoot"
+     },
+     "link": null
+    },
+    {
+     "localized_name": "weapon",
+     "name": "weapon",
+     "type": "COMBO",
+     "widget": {
+      "name": "weapon"
+     },
+     "link": null
+    }
+   ],
+   "outputs": [
+    {
+     "localized_name": "player",
+     "name": "player",
+     "type": "CG_ACTOR",
+     "links": [
+      6
+     ]
+    }
+   ],
+   "properties": {
+    "Node name for S&R": "ComfyGamePlayer"
+   },
+   "widgets_values": [
+    "Rusty",
+    "auto",
+    4,
+    1,
+    1,
+    true,
+    true,
+    true,
+    false,
+    "auto"
+   ],
+   "widgets_values_named": {
+    "name": "Rusty",
+    "look": "auto",
+    "hp": 4,
+    "speed": 1,
+    "jump": 1,
+    "double_jump": true,
+    "dash": true,
+    "wall_jump": true,
+    "shoot": false,
+    "weapon": "auto"
+   },
+   "color": "#6a3d1e",
+   "bgcolor": "#522f17"
+  },
+  {
+   "id": 8,
+   "type": "ComfyGamePixelBoss",
+   "pos": [
+    860,
+    620
+   ],
+   "size": [
+    300,
+    126
+   ],
+   "flags": {},
+   "order": 7,
+   "mode": 0,
+   "inputs": [
+    {
+     "localized_name": "palette",
+     "name": "palette",
+     "shape": 7,
+     "type": "CG_PALETTE",
+     "link": null
+    },
+    {
+     "localized_name": "kind",
+     "name": "kind",
+     "type": "COMBO",
+     "widget": {
+      "name": "kind"
+     },
+     "link": null
+    },
+    {
+     "localized_name": "seed",
+     "name": "seed",
+     "type": "INT",
+     "widget": {
+      "name": "seed"
+     },
+     "link": null
+    }
+   ],
+   "outputs": [
+    {
+     "localized_name": "sprite",
+     "name": "sprite",
+     "type": "CG_SPRITE",
+     "links": [
+      7
+     ]
+    },
+    {
+     "localized_name": "sheet",
+     "name": "sheet",
+     "type": "IMAGE",
+     "links": null
+    }
+   ],
+   "properties": {
+    "Node name for S&R": "ComfyGamePixelBoss"
+   },
+   "widgets_values": [
+    "beetle",
+    3,
+    "fixed"
+   ],
+   "widgets_values_named": {
+    "kind": "beetle",
+    "seed": 3,
+    "control_after_generate": "fixed"
+   },
+   "color": "#5b3170",
+   "bgcolor": "#462656"
+  },
+  {
+   "id": 9,
+   "type": "ComfyGameBoss",
+   "pos": [
+    1220,
+    620
+   ],
+   "size": [
+    300,
+    106
+   ],
+   "flags": {},
+   "order": 8,
+   "mode": 0,
+   "inputs": [
+    {
+     "localized_name": "sprite",
+     "name": "sprite",
+     "shape": 7,
+     "type": "CG_SPRITE",
+     "link": 7
+    },
+    {
+     "localized_name": "name",
+     "name": "name",
+     "type": "STRING",
+     "widget": {
+      "name": "name"
+     },
+     "link": null
+    },
+    {
+     "localized_name": "look",
+     "name": "look",
+     "type": "COMBO",
+     "widget": {
+      "name": "look"
+     },
+     "link": null
+    },
+    {
+     "localized_name": "hp",
+     "name": "hp",
+     "type": "INT",
+     "widget": {
+      "name": "hp"
+     },
+     "link": null
+    }
+   ],
+   "outputs": [
+    {
+     "localized_name": "boss",
+     "name": "boss",
+     "type": "CG_ACTOR",
+     "links": [
+      8
+     ]
+    }
+   ],
+   "properties": {
+    "Node name for S&R": "ComfyGameBoss"
+   },
+   "widgets_values": [
+    "Stone Beetle",
+    "auto",
+    24
+   ],
+   "widgets_values_named": {
+    "name": "Stone Beetle",
+    "look": "auto",
+    "hp": 24
+   },
+   "color": "#6a3d1e",
+   "bgcolor": "#522f17"
+  },
+  {
+   "id": 10,
+   "type": "ComfyGamePixelSprite",
+   "pos": [
+    40,
+    1100
+   ],
+   "size": [
+    300,
+    126
+   ],
+   "flags": {},
+   "order": 9,
+   "mode": 0,
+   "inputs": [
+    {
+     "localized_name": "palette",
+     "name": "palette",
+     "shape": 7,
+     "type": "CG_PALETTE",
+     "link": null
+    },
+    {
+     "localized_name": "kind",
+     "name": "kind",
+     "type": "COMBO",
+     "widget": {
+      "name": "kind"
+     },
+     "link": null
+    },
+    {
+     "localized_name": "seed",
+     "name": "seed",
+     "type": "INT",
+     "widget": {
+      "name": "seed"
+     },
+     "link": null
+    }
+   ],
+   "outputs": [
+    {
+     "localized_name": "sprite",
+     "name": "sprite",
+     "type": "CG_SPRITE",
+     "links": [
+      9
+     ]
+    },
+    {
+     "localized_name": "sheet",
+     "name": "sheet",
+     "type": "IMAGE",
+     "links": null
+    }
+   ],
+   "properties": {
+    "Node name for S&R": "ComfyGamePixelSprite"
+   },
+   "widgets_values": [
+    "slime",
+    0,
+    "fixed"
+   ],
+   "widgets_values_named": {
+    "kind": "slime",
+    "seed": 0,
+    "control_after_generate": "fixed"
+   },
+   "color": "#5b3170",
+   "bgcolor": "#462656"
+  },
+  {
+   "id": 11,
+   "type": "ComfyGameEnemy",
+   "pos": [
+    420,
+    1100
+   ],
+   "size": [
+    300,
+    222
+   ],
+   "flags": {},
+   "order": 10,
+   "mode": 0,
+   "inputs": [
+    {
+     "localized_name": "sprite",
+     "name": "sprite",
+     "shape": 7,
+     "type": "CG_SPRITE",
+     "link": 9
+    },
+    {
+     "localized_name": "roster",
+     "name": "roster",
+     "shape": 7,
+     "type": "CG_ROSTER",
+     "link": null
+    },
+    {
+     "localized_name": "name",
+     "name": "name",
+     "type": "STRING",
+     "widget": {
+      "name": "name"
+     },
+     "link": null
+    },
+    {
+     "localized_name": "behavior",
+     "name": "behavior",
+     "type": "COMBO",
+     "widget": {
+      "name": "behavior"
+     },
+     "link": null
+    },
+    {
+     "localized_name": "look",
+     "name": "look",
+     "type": "COMBO",
+     "widget": {
+      "name": "look"
+     },
+     "link": null
+    },
+    {
+     "localized_name": "hp",
+     "name": "hp",
+     "type": "FLOAT",
+     "widget": {
+      "name": "hp"
+     },
+     "link": null
+    },
+    {
+     "localized_name": "speed",
+     "name": "speed",
+     "type": "FLOAT",
+     "widget": {
+      "name": "speed"
+     },
+     "link": null
+    },
+    {
+     "localized_name": "damage",
+     "name": "damage",
+     "type": "INT",
+     "widget": {
+      "name": "damage"
+     },
+     "link": null
+    },
+    {
+     "localized_name": "score",
+     "name": "score",
+     "type": "INT",
+     "widget": {
+      "name": "score"
+     },
+     "link": null
+    }
+   ],
+   "outputs": [
+    {
+     "localized_name": "roster",
+     "name": "roster",
+     "type": "CG_ROSTER",
+     "links": [
+      13
+     ]
+    }
+   ],
+   "properties": {
+    "Node name for S&R": "ComfyGameEnemy"
+   },
+   "widgets_values": [
+    "Pebble Slime",
+    "walker",
+    "auto",
+    1,
+    1,
+    1,
+    100
+   ],
+   "widgets_values_named": {
+    "name": "Pebble Slime",
+    "behavior": "walker",
+    "look": "auto",
+    "hp": 1,
+    "speed": 1,
+    "damage": 1,
+    "score": 100
+   },
+   "color": "#6a3d1e",
+   "bgcolor": "#522f17"
+  },
+  {
+   "id": 12,
+   "type": "ComfyGamePixelSprite",
+   "pos": [
+    40,
+    1460
+   ],
+   "size": [
+    300,
+    126
+   ],
+   "flags": {},
+   "order": 11,
+   "mode": 0,
+   "inputs": [
+    {
+     "localized_name": "palette",
+     "name": "palette",
+     "shape": 7,
+     "type": "CG_PALETTE",
+     "link": null
+    },
+    {
+     "localized_name": "kind",
+     "name": "kind",
+     "type": "COMBO",
+     "widget": {
+      "name": "kind"
+     },
+     "link": null
+    },
+    {
+     "localized_name": "seed",
+     "name": "seed",
+     "type": "INT",
+     "widget": {
+      "name": "seed"
+     },
+     "link": null
+    }
+   ],
+   "outputs": [
+    {
+     "localized_name": "sprite",
+     "name": "sprite",
+     "type": "CG_SPRITE",
+     "links": [
+      10
+     ]
+    },
+    {
+     "localized_name": "sheet",
+     "name": "sheet",
+     "type": "IMAGE",
+     "links": null
+    }
+   ],
+   "properties": {
+    "Node name for S&R": "ComfyGamePixelSprite"
+   },
+   "widgets_values": [
+    "bat",
+    0,
+    "fixed"
+   ],
+   "widgets_values_named": {
+    "kind": "bat",
+    "seed": 0,
+    "control_after_generate": "fixed"
+   },
+   "color": "#5b3170",
+   "bgcolor": "#462656"
+  },
+  {
+   "id": 13,
+   "type": "ComfyGameEnemy",
+   "pos": [
+    420,
+    1460
+   ],
+   "size": [
+    300,
+    222
+   ],
+   "flags": {},
+   "order": 12,
+   "mode": 0,
+   "inputs": [
+    {
+     "localized_name": "sprite",
+     "name": "sprite",
+     "shape": 7,
+     "type": "CG_SPRITE",
+     "link": 10
+    },
+    {
+     "localized_name": "roster",
+     "name": "roster",
+     "shape": 7,
+     "type": "CG_ROSTER",
+     "link": 13
+    },
+    {
+     "localized_name": "name",
+     "name": "name",
+     "type": "STRING",
+     "widget": {
+      "name": "name"
+     },
+     "link": null
+    },
+    {
+     "localized_name": "behavior",
+     "name": "behavior",
+     "type": "COMBO",
+     "widget": {
+      "name": "behavior"
+     },
+     "link": null
+    },
+    {
+     "localized_name": "look",
+     "name": "look",
+     "type": "COMBO",
+     "widget": {
+      "name": "look"
+     },
+     "link": null
+    },
+    {
+     "localized_name": "hp",
+     "name": "hp",
+     "type": "FLOAT",
+     "widget": {
+      "name": "hp"
+     },
+     "link": null
+    },
+    {
+     "localized_name": "speed",
+     "name": "speed",
+     "type": "FLOAT",
+     "widget": {
+      "name": "speed"
+     },
+     "link": null
+    },
+    {
+     "localized_name": "damage",
+     "name": "damage",
+     "type": "INT",
+     "widget": {
+      "name": "damage"
+     },
+     "link": null
+    },
+    {
+     "localized_name": "score",
+     "name": "score",
+     "type": "INT",
+     "widget": {
+      "name": "score"
+     },
+     "link": null
+    }
+   ],
+   "outputs": [
+    {
+     "localized_name": "roster",
+     "name": "roster",
+     "type": "CG_ROSTER",
+     "links": [
+      14
+     ]
+    }
+   ],
+   "properties": {
+    "Node name for S&R": "ComfyGameEnemy"
+   },
+   "widgets_values": [
+    "Cliff Bat",
+    "flyer",
+    "auto",
+    1,
+    1.1,
+    1,
+    100
+   ],
+   "widgets_values_named": {
+    "name": "Cliff Bat",
+    "behavior": "flyer",
+    "look": "auto",
+    "hp": 1,
+    "speed": 1.1,
+    "damage": 1,
+    "score": 100
+   },
+   "color": "#6a3d1e",
+   "bgcolor": "#522f17"
+  },
+  {
+   "id": 14,
+   "type": "ComfyGamePixelSprite",
+   "pos": [
+    860,
+    1100
+   ],
+   "size": [
+    300,
+    126
+   ],
+   "flags": {},
+   "order": 13,
+   "mode": 0,
+   "inputs": [
+    {
+     "localized_name": "palette",
+     "name": "palette",
+     "shape": 7,
+     "type": "CG_PALETTE",
+     "link": null
+    },
+    {
+     "localized_name": "kind",
+     "name": "kind",
+     "type": "COMBO",
+     "widget": {
+      "name": "kind"
+     },
+     "link": null
+    },
+    {
+     "localized_name": "seed",
+     "name": "seed",
+     "type": "INT",
+     "widget": {
+      "name": "seed"
+     },
+     "link": null
+    }
+   ],
+   "outputs": [
+    {
+     "localized_name": "sprite",
+     "name": "sprite",
+     "type": "CG_SPRITE",
+     "links": [
+      11
+     ]
+    },
+    {
+     "localized_name": "sheet",
+     "name": "sheet",
+     "type": "IMAGE",
+     "links": null
+    }
+   ],
+   "properties": {
+    "Node name for S&R": "ComfyGamePixelSprite"
+   },
+   "widgets_values": [
+    "mushroom",
+    0,
+    "fixed"
+   ],
+   "widgets_values_named": {
+    "kind": "mushroom",
+    "seed": 0,
+    "control_after_generate": "fixed"
+   },
+   "color": "#5b3170",
+   "bgcolor": "#462656"
+  },
+  {
+   "id": 15,
+   "type": "ComfyGameEnemy",
+   "pos": [
+    1220,
+    1100
+   ],
+   "size": [
+    300,
+    222
+   ],
+   "flags": {},
+   "order": 14,
+   "mode": 0,
+   "inputs": [
+    {
+     "localized_name": "sprite",
+     "name": "sprite",
+     "shape": 7,
+     "type": "CG_SPRITE",
+     "link": 11
+    },
+    {
+     "localized_name": "roster",
+     "name": "roster",
+     "shape": 7,
+     "type": "CG_ROSTER",
+     "link": 14
+    },
+    {
+     "localized_name": "name",
+     "name": "name",
+     "type": "STRING",
+     "widget": {
+      "name": "name"
+     },
+     "link": null
+    },
+    {
+     "localized_name": "behavior",
+     "name": "behavior",
+     "type": "COMBO",
+     "widget": {
+      "name": "behavior"
+     },
+     "link": null
+    },
+    {
+     "localized_name": "look",
+     "name": "look",
+     "type": "COMBO",
+     "widget": {
+      "name": "look"
+     },
+     "link": null
+    },
+    {
+     "localized_name": "hp",
+     "name": "hp",
+     "type": "FLOAT",
+     "widget": {
+      "name": "hp"
+     },
+     "link": null
+    },
+    {
+     "localized_name": "speed",
+     "name": "speed",
+     "type": "FLOAT",
+     "widget": {
+      "name": "speed"
+     },
+     "link": null
+    },
+    {
+     "localized_name": "damage",
+     "name": "damage",
+     "type": "INT",
+     "widget": {
+      "name": "damage"
+     },
+     "link": null
+    },
+    {
+     "localized_name": "score",
+     "name": "score",
+     "type": "INT",
+     "widget": {
+      "name": "score"
+     },
+     "link": null
+    }
+   ],
+   "outputs": [
+    {
+     "localized_name": "roster",
+     "name": "roster",
+     "type": "CG_ROSTER",
+     "links": [
+      15
+     ]
+    }
+   ],
+   "properties": {
+    "Node name for S&R": "ComfyGameEnemy"
+   },
+   "widgets_values": [
+    "Hop Cap",
+    "hopper",
+    "auto",
+    2,
+    1,
+    1,
+    100
+   ],
+   "widgets_values_named": {
+    "name": "Hop Cap",
+    "behavior": "hopper",
+    "look": "auto",
+    "hp": 2,
+    "speed": 1,
+    "damage": 1,
+    "score": 100
+   },
+   "color": "#6a3d1e",
+   "bgcolor": "#522f17"
+  },
+  {
+   "id": 16,
+   "type": "ComfyGamePixelSprite",
+   "pos": [
+    860,
+    1460
+   ],
+   "size": [
+    300,
+    126
+   ],
+   "flags": {},
+   "order": 15,
+   "mode": 0,
+   "inputs": [
+    {
+     "localized_name": "palette",
+     "name": "palette",
+     "shape": 7,
+     "type": "CG_PALETTE",
+     "link": null
+    },
+    {
+     "localized_name": "kind",
+     "name": "kind",
+     "type": "COMBO",
+     "widget": {
+      "name": "kind"
+     },
+     "link": null
+    },
+    {
+     "localized_name": "seed",
+     "name": "seed",
+     "type": "INT",
+     "widget": {
+      "name": "seed"
+     },
+     "link": null
+    }
+   ],
+   "outputs": [
+    {
+     "localized_name": "sprite",
+     "name": "sprite",
+     "type": "CG_SPRITE",
+     "links": [
+      12
+     ]
+    },
+    {
+     "localized_name": "sheet",
+     "name": "sheet",
+     "type": "IMAGE",
+     "links": null
+    }
+   ],
+   "properties": {
+    "Node name for S&R": "ComfyGamePixelSprite"
+   },
+   "widgets_values": [
+    "plant",
+    0,
+    "fixed"
+   ],
+   "widgets_values_named": {
+    "kind": "plant",
+    "seed": 0,
+    "control_after_generate": "fixed"
+   },
+   "color": "#5b3170",
+   "bgcolor": "#462656"
+  },
+  {
+   "id": 17,
+   "type": "ComfyGameEnemy",
+   "pos": [
+    1220,
+    1460
+   ],
+   "size": [
+    300,
+    222
+   ],
+   "flags": {},
+   "order": 16,
+   "mode": 0,
+   "inputs": [
+    {
+     "localized_name": "sprite",
+     "name": "sprite",
+     "shape": 7,
+     "type": "CG_SPRITE",
+     "link": 12
+    },
+    {
+     "localized_name": "roster",
+     "name": "roster",
+     "shape": 7,
+     "type": "CG_ROSTER",
+     "link": 15
+    },
+    {
+     "localized_name": "name",
+     "name": "name",
+     "type": "STRING",
+     "widget": {
+      "name": "name"
+     },
+     "link": null
+    },
+    {
+     "localized_name": "behavior",
+     "name": "behavior",
+     "type": "COMBO",
+     "widget": {
+      "name": "behavior"
+     },
+     "link": null
+    },
+    {
+     "localized_name": "look",
+     "name": "look",
+     "type": "COMBO",
+     "widget": {
+      "name": "look"
+     },
+     "link": null
+    },
+    {
+     "localized_name": "hp",
+     "name": "hp",
+     "type": "FLOAT",
+     "widget": {
+      "name": "hp"
+     },
+     "link": null
+    },
+    {
+     "localized_name": "speed",
+     "name": "speed",
+     "type": "FLOAT",
+     "widget": {
+      "name": "speed"
+     },
+     "link": null
+    },
+    {
+     "localized_name": "damage",
+     "name": "damage",
+     "type": "INT",
+     "widget": {
+      "name": "damage"
+     },
+     "link": null
+    },
+    {
+     "localized_name": "score",
+     "name": "score",
+     "type": "INT",
+     "widget": {
+      "name": "score"
+     },
+     "link": null
+    }
+   ],
+   "outputs": [
+    {
+     "localized_name": "roster",
+     "name": "roster",
+     "type": "CG_ROSTER",
+     "links": [
+      16
+     ]
+    }
+   ],
+   "properties": {
+    "Node name for S&R": "ComfyGameEnemy"
+   },
+   "widgets_values": [
+    "Seed Spitter",
+    "shooter",
+    "auto",
+    2,
+    1,
+    1,
+    250
+   ],
+   "widgets_values_named": {
+    "name": "Seed Spitter",
+    "behavior": "shooter",
+    "look": "auto",
+    "hp": 2,
+    "speed": 1,
+    "damage": 1,
+    "score": 250
+   },
+   "color": "#6a3d1e",
+   "bgcolor": "#522f17"
+  },
+  {
+   "id": 18,
+   "type": "ComfyGamePlatformerLevels",
+   "pos": [
+    1620,
+    1100
+   ],
+   "size": [
+    300,
+    294
+   ],
+   "flags": {},
+   "order": 17,
+   "mode": 0,
+   "inputs": [
+    {
+     "localized_name": "levels",
+     "name": "levels",
+     "shape": 7,
+     "type": "CG_LEVELS",
+     "link": null
+    },
+    {
+     "localized_name": "count",
+     "name": "count",
+     "type": "INT",
+     "widget": {
+      "name": "count"
+     },
+     "link": null
+    },
+    {
+     "localized_name": "length",
+     "name": "length",
+     "type": "INT",
+     "widget": {
+      "name": "length"
+     },
+     "link": null
+    },
+    {
+     "localized_name": "spikes",
+     "name": "spikes",
+     "type": "BOOLEAN",
+     "widget": {
+      "name": "spikes"
+     },
+     "link": null
+    },
+    {
+     "localized_name": "moving_platforms",
+     "name": "moving_platforms",
+     "type": "BOOLEAN",
+     "widget": {
+      "name": "moving_platforms"
+     },
+     "link": null
+    },
+    {
+     "localized_name": "springs",
+     "name": "springs",
+     "type": "BOOLEAN",
+     "widget": {
+      "name": "springs"
+     },
+     "link": null
+    },
+    {
+     "localized_name": "crumbling_blocks",
+     "name": "crumbling_blocks",
+     "type": "BOOLEAN",
+     "widget": {
+      "name": "crumbling_blocks"
+     },
+     "link": null
+    },
+    {
+     "localized_name": "boss_at_end",
+     "name": "boss_at_end",
+     "type": "BOOLEAN",
+     "widget": {
+      "name": "boss_at_end"
+     },
+     "link": null
+    },
+    {
+     "localized_name": "seed",
+     "name": "seed",
+     "type": "INT",
+     "widget": {
+      "name": "seed"
+     },
+     "link": null
+    },
+    {
+     "localized_name": "names",
+     "name": "names",
+     "shape": 7,
+     "type": "STRING",
+     "widget": {
+      "name": "names"
+     },
+     "link": null
+    }
+   ],
+   "outputs": [
+    {
+     "localized_name": "levels",
+     "name": "levels",
+     "type": "CG_LEVELS",
+     "links": [
+      17
+     ]
+    },
+    {
+     "localized_name": "maps",
+     "name": "maps",
+     "type": "IMAGE",
+     "links": null
+    }
+   ],
+   "properties": {
+    "Node name for S&R": "ComfyGamePlatformerLevels"
+   },
+   "widgets_values": [
+    4,
+    6,
+    true,
+    true,
+    true,
+    true,
+    true,
+    0,
+    "randomize",
+    "Foothills, Windy Ledge, Crystal Caves, Summit Shrine"
+   ],
+   "widgets_values_named": {
+    "count": 4,
+    "length": 6,
+    "spikes": true,
+    "moving_platforms": true,
+    "springs": true,
+    "crumbling_blocks": true,
+    "boss_at_end": true,
+    "seed": 0,
+    "control_after_generate": "randomize",
+    "names": "Foothills, Windy Ledge, Crystal Caves, Summit Shrine"
+   },
+   "color": "#2f5a2c",
+   "bgcolor": "#244522"
+  },
+  {
+   "id": 19,
+   "type": "ComfyGameChipMusic",
+   "pos": [
+    1620,
+    40
+   ],
+   "size": [
+    300,
+    222
+   ],
+   "flags": {},
+   "order": 18,
+   "mode": 0,
+   "inputs": [
+    {
+     "localized_name": "music",
+     "name": "music",
+     "shape": 7,
+     "type": "CG_MUSIC",
+     "link": null
+    },
+    {
+     "localized_name": "mood",
+     "name": "mood",
+     "type": "COMBO",
+     "widget": {
+      "name": "mood"
+     },
+     "link": null
+    },
+    {
+     "localized_name": "instruments",
+     "name": "instruments",
+     "type": "COMBO",
+     "widget": {
+      "name": "instruments"
+     },
+     "link": null
+    },
+    {
+     "localized_name": "tempo",
+     "name": "tempo",
+     "type": "INT",
+     "widget": {
+      "name": "tempo"
+     },
+     "link": null
+    },
+    {
+     "localized_name": "bars",
+     "name": "bars",
+     "type": "INT",
+     "widget": {
+      "name": "bars"
+     },
+     "link": null
+    },
+    {
+     "localized_name": "seed",
+     "name": "seed",
+     "type": "INT",
+     "widget": {
+      "name": "seed"
+     },
+     "link": null
+    },
+    {
+     "localized_name": "slot",
+     "name": "slot",
+     "type": "COMBO",
+     "widget": {
+      "name": "slot"
+     },
+     "link": null
+    }
+   ],
+   "outputs": [
+    {
+     "localized_name": "music",
+     "name": "music",
+     "type": "CG_MUSIC",
+     "links": [
+      18
+     ]
+    },
+    {
+     "localized_name": "audio",
+     "name": "audio",
+     "type": "AUDIO",
+     "links": null
+    }
+   ],
+   "properties": {
+    "Node name for S&R": "ComfyGameChipMusic"
+   },
+   "widgets_values": [
+    "adventure",
+    "nes",
+    0,
+    24,
+    5,
+    "fixed",
+    "main"
+   ],
+   "widgets_values_named": {
+    "mood": "adventure",
+    "instruments": "nes",
+    "tempo": 0,
+    "bars": 24,
+    "seed": 5,
+    "control_after_generate": "fixed",
+    "slot": "main"
+   },
+   "color": "#26457a",
+   "bgcolor": "#1d355e"
+  },
+  {
+   "id": 20,
+   "type": "ComfyGameChipMusic",
+   "pos": [
+    1620,
+    520
+   ],
+   "size": [
+    300,
+    222
+   ],
+   "flags": {},
+   "order": 19,
+   "mode": 0,
+   "inputs": [
+    {
+     "localized_name": "music",
+     "name": "music",
+     "shape": 7,
+     "type": "CG_MUSIC",
+     "link": 18
+    },
+    {
+     "localized_name": "mood",
+     "name": "mood",
+     "type": "COMBO",
+     "widget": {
+      "name": "mood"
+     },
+     "link": null
+    },
+    {
+     "localized_name": "instruments",
+     "name": "instruments",
+     "type": "COMBO",
+     "widget": {
+      "name": "instruments"
+     },
+     "link": null
+    },
+    {
+     "localized_name": "tempo",
+     "name": "tempo",
+     "type": "INT",
+     "widget": {
+      "name": "tempo"
+     },
+     "link": null
+    },
+    {
+     "localized_name": "bars",
+     "name": "bars",
+     "type": "INT",
+     "widget": {
+      "name": "bars"
+     },
+     "link": null
+    },
+    {
+     "localized_name": "seed",
+     "name": "seed",
+     "type": "INT",
+     "widget": {
+      "name": "seed"
+     },
+     "link": null
+    },
+    {
+     "localized_name": "slot",
+     "name": "slot",
+     "type": "COMBO",
+     "widget": {
+      "name": "slot"
+     },
+     "link": null
+    }
+   ],
+   "outputs": [
+    {
+     "localized_name": "music",
+     "name": "music",
+     "type": "CG_MUSIC",
+     "links": [
+      19
+     ]
+    },
+    {
+     "localized_name": "audio",
+     "name": "audio",
+     "type": "AUDIO",
+     "links": null
+    }
+   ],
+   "properties": {
+    "Node name for S&R": "ComfyGameChipMusic"
+   },
+   "widgets_values": [
+    "boss",
+    "nes",
+    0,
+    16,
+    2,
+    "fixed",
+    "boss"
+   ],
+   "widgets_values_named": {
+    "mood": "boss",
+    "instruments": "nes",
+    "tempo": 0,
+    "bars": 16,
+    "seed": 2,
+    "control_after_generate": "fixed",
+    "slot": "boss"
+   },
+   "color": "#26457a",
+   "bgcolor": "#1d355e"
+  },
+  {
+   "id": 21,
+   "type": "ComfyGameSoundEffects",
+   "pos": [
+    2000,
+    520
+   ],
+   "size": [
+    300,
+    126
+   ],
+   "flags": {},
+   "order": 20,
+   "mode": 0,
+   "inputs": [
+    {
+     "localized_name": "style",
+     "name": "style",
+     "type": "COMBO",
+     "widget": {
+      "name": "style"
+     },
+     "link": null
+    },
+    {
+     "localized_name": "seed",
+     "name": "seed",
+     "type": "INT",
+     "widget": {
+      "name": "seed"
+     },
+     "link": null
+    }
+   ],
+   "outputs": [
+    {
+     "localized_name": "sfx",
+     "name": "sfx",
+     "type": "CG_SFX",
+     "links": [
+      20
+     ]
+    },
+    {
+     "localized_name": "audio",
+     "name": "audio",
+     "type": "AUDIO",
+     "links": null
+    }
+   ],
+   "properties": {
+    "Node name for S&R": "ComfyGameSoundEffects"
+   },
+   "widgets_values": [
+    "retro",
+    0,
+    "fixed"
+   ],
+   "widgets_values_named": {
+    "style": "retro",
+    "seed": 0,
+    "control_after_generate": "fixed"
+   },
+   "color": "#26457a",
+   "bgcolor": "#1d355e"
+  },
+  {
+   "id": 22,
+   "type": "ComfyGameScript",
+   "pos": [
+    2000,
+    1100
+   ],
+   "size": [
+    440,
+    420
+   ],
+   "flags": {},
+   "order": 21,
+   "mode": 0,
+   "inputs": [
+    {
+     "localized_name": "code",
+     "name": "code",
+     "type": "STRING",
+     "widget": {
+      "name": "code"
+     },
+     "link": null
+    }
+   ],
+   "outputs": [
+    {
+     "localized_name": "script",
+     "name": "script",
+     "type": "STRING",
+     "links": [
+      21
+     ]
+    }
+   ],
+   "properties": {
+    "Node name for S&R": "ComfyGameScript"
+   },
+   "widgets_values": [
+    "// Combo counter: chain kills quickly for bonus points.\nlet combo = 0, timer = 0;\nreturn {\n  onEnemyKilled(e) {\n    combo++; timer = 2;\n    if (combo > 1) api.float(\"COMBO x\" + combo, e.x, e.y - 8, api.theme.gold);\n    api.addScore(combo * 25);\n  },\n  onUpdate(dt) { timer -= dt; if (timer <= 0) combo = 0; },\n  draw() {\n    if (combo > 1) api.text(\"COMBO x\" + combo, api.W / 2, 22, { align: \"center\", color: api.theme.gold, outline: \"#000\" });\n  },\n};"
+   ],
+   "widgets_values_named": {
+    "code": "// Combo counter: chain kills quickly for bonus points.\nlet combo = 0, timer = 0;\nreturn {\n  onEnemyKilled(e) {\n    combo++; timer = 2;\n    if (combo > 1) api.float(\"COMBO x\" + combo, e.x, e.y - 8, api.theme.gold);\n    api.addScore(combo * 25);\n  },\n  onUpdate(dt) { timer -= dt; if (timer <= 0) combo = 0; },\n  draw() {\n    if (combo > 1) api.text(\"COMBO x\" + combo, api.W / 2, 22, { align: \"center\", color: api.theme.gold, outline: \"#000\" });\n  },\n};"
+   },
+   "color": "#7a5a14",
+   "bgcolor": "#5e4510"
+  },
+  {
+   "id": 23,
+   "type": "ComfyGameBuild",
+   "pos": [
+    2520,
+    40
+   ],
+   "size": [
+    640,
+    700
+   ],
+   "flags": {},
+   "order": 22,
+   "mode": 0,
+   "inputs": [
+    {
+     "localized_name": "game",
+     "name": "game",
+     "type": "CG_GAME",
+     "link": 2
+    },
+    {
+     "localized_name": "player",
+     "name": "player",
+     "shape": 7,
+     "type": "CG_ACTOR",
+     "link": 6
+    },
+    {
+     "localized_name": "enemies",
+     "name": "enemies",
+     "shape": 7,
+     "type": "CG_ROSTER",
+     "link": 16
+    },
+    {
+     "localized_name": "boss",
+     "name": "boss",
+     "shape": 7,
+     "type": "CG_ACTOR",
+     "link": 8
+    },
+    {
+     "localized_name": "levels",
+     "name": "levels",
+     "shape": 7,
+     "type": "CG_LEVELS",
+     "link": 17
+    },
+    {
+     "localized_name": "tileset",
+     "name": "tileset",
+     "shape": 7,
+     "type": "CG_TILESET",
+     "link": 3
+    },
+    {
+     "localized_name": "background",
+     "name": "background",
+     "shape": 7,
+     "type": "CG_BACKDROP",
+     "link": 4
+    },
+    {
+     "localized_name": "music",
+     "name": "music",
+     "shape": 7,
+     "type": "CG_MUSIC",
+     "link": 19
+    },
+    {
+     "localized_name": "sfx",
+     "name": "sfx",
+     "shape": 7,
+     "type": "CG_SFX",
+     "link": 20
+    },
+    {
+     "localized_name": "script",
+     "name": "script",
+     "shape": 7,
+     "type": "STRING",
+     "link": 21
+    },
+    {
+     "localized_name": "export_name",
+     "name": "export_name",
+     "shape": 7,
+     "type": "STRING",
+     "widget": {
+      "name": "export_name"
+     },
+     "link": null
+    },
+    {
+     "localized_name": "compress_music",
+     "name": "compress_music",
+     "shape": 7,
+     "type": "BOOLEAN",
+     "widget": {
+      "name": "compress_music"
+     },
+     "link": null
+    }
+   ],
+   "outputs": [
+    {
+     "localized_name": "html_path",
+     "name": "html_path",
+     "type": "STRING",
+     "links": null
+    },
+    {
+     "localized_name": "thumbnail",
+     "name": "thumbnail",
+     "type": "IMAGE",
+     "links": null
+    },
+    {
+     "localized_name": "game",
+     "name": "game",
+     "type": "CG_GAME",
+     "links": null
+    }
+   ],
+   "properties": {
+    "Node name for S&R": "ComfyGameBuild"
+   },
+   "widgets_values": [
+    "",
+    true
+   ],
+   "widgets_values_named": {
+    "export_name": "",
+    "compress_music": true
+   },
+   "color": "#1d4d55",
+   "bgcolor": "#163c42"
+  }
+ ],
+ "links": [
+  [
+   1,
+   2,
+   0,
+   3,
+   0,
+   "CG_PALETTE"
+  ],
+  [
+   2,
+   3,
+   0,
+   23,
+   0,
+   "CG_GAME"
+  ],
+  [
+   3,
+   4,
+   0,
+   23,
+   5,
+   "CG_TILESET"
+  ],
+  [
+   4,
+   5,
+   0,
+   23,
+   6,
+   "CG_BACKDROP"
+  ],
+  [
+   5,
+   6,
+   0,
+   7,
+   0,
+   "CG_SPRITE"
+  ],
+  [
+   6,
+   7,
+   0,
+   23,
+   1,
+   "CG_ACTOR"
+  ],
+  [
+   7,
+   8,
+   0,
+   9,
+   0,
+   "CG_SPRITE"
+  ],
+  [
+   8,
+   9,
+   0,
+   23,
+   3,
+   "CG_ACTOR"
+  ],
+  [
+   9,
+   10,
+   0,
+   11,
+   0,
+   "CG_SPRITE"
+  ],
+  [
+   10,
+   12,
+   0,
+   13,
+   0,
+   "CG_SPRITE"
+  ],
+  [
+   11,
+   14,
+   0,
+   15,
+   0,
+   "CG_SPRITE"
+  ],
+  [
+   12,
+   16,
+   0,
+   17,
+   0,
+   "CG_SPRITE"
+  ],
+  [
+   13,
+   11,
+   0,
+   13,
+   1,
+   "CG_ROSTER"
+  ],
+  [
+   14,
+   13,
+   0,
+   15,
+   1,
+   "CG_ROSTER"
+  ],
+  [
+   15,
+   15,
+   0,
+   17,
+   1,
+   "CG_ROSTER"
+  ],
+  [
+   16,
+   17,
+   0,
+   23,
+   2,
+   "CG_ROSTER"
+  ],
+  [
+   17,
+   18,
+   0,
+   23,
+   4,
+   "CG_LEVELS"
+  ],
+  [
+   18,
+   19,
+   0,
+   20,
+   0,
+   "CG_MUSIC"
+  ],
+  [
+   19,
+   20,
+   0,
+   23,
+   7,
+   "CG_MUSIC"
+  ],
+  [
+   20,
+   21,
+   0,
+   23,
+   8,
+   "CG_SFX"
+  ],
+  [
+   21,
+   22,
+   0,
+   23,
+   9,
+   "STRING"
+  ]
+ ],
+ "groups": [
+  {
+   "id": 1,
+   "title": "Look",
+   "bounding": [
+    16,
+    -40,
+    1528,
+    486
+   ],
+   "color": "#5b3170",
+   "flags": {}
+  },
+  {
+   "id": 2,
+   "title": "Hero & boss",
+   "bounding": [
+    16,
+    540,
+    1528,
+    378
+   ],
+   "color": "#6a3d1e",
+   "flags": {}
+  },
+  {
+   "id": 3,
+   "title": "Enemies (chain more!)",
+   "bounding": [
+    16,
+    1020,
+    1528,
+    686
+   ],
+   "color": "#6a3d1e",
+   "flags": {}
+  },
+  {
+   "id": 4,
+   "title": "Sound",
+   "bounding": [
+    1596,
+    -40,
+    728,
+    806
+   ],
+   "color": "#26457a",
+   "flags": {}
+  },
+  {
+   "id": 5,
+   "title": "World & code",
+   "bounding": [
+    1596,
+    1020,
+    868,
+    524
+   ],
+   "color": "#2f5a2c",
+   "flags": {}
+  }
+ ],
+ "config": {},
+ "extra": {
+  "ds": {
+   "scale": 0.44603033006244425,
+   "offset": [
+    417.79999999999995,
+    500
+   ]
+  }
+ },
+ "version": 0.4
+}

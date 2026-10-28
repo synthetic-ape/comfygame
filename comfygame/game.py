@@ -219,10 +219,10 @@ def complete(game, progress=None):
 
     # audio
     mood = g.get("music_mood") or d["mood"]
-    if not g["music"].get("main"):
+    if g["music"].get("main") is None:
         song = music.compose(mood, seed, bars=24 if mood not in ("chill", "spooky", "mysterious") else 16, instruments=g.get("music_style") or "nes")
         g["music"]["main"] = music.render(song)
-    if not g["music"].get("boss") and any(lv.get("boss") for lv in g["levels"]):
+    if g["music"].get("boss") is None and any(lv.get("boss") for lv in g["levels"]):
         song = music.compose("boss", seed + 1, bars=16, instruments=g.get("music_style") or "nes")
         g["music"]["boss"] = music.render(song)
     if not g.get("sfx"):

@@ -61,7 +61,11 @@ export async function launch({ size = "960x540", port = 9300 + Math.floor(Math.r
   const api = {
     send, logs,
     async goto(url) { await send("Page.navigate", { url }); await new Promise((r) => setTimeout(r, 600)); },
-    async eval(expr) { const r = await send("Runtime.evaluate", { expression: expr, returnByValue: true, awaitPromise: true }); return r.result?.value; },
+    async eval(expr) {
+      const r = await send("Runtime.evaluate", { expression: expr, returnByValue: true, awaitPromise: true });
+      if (r.exceptionDetails) throw new Error("page: " + (r.exceptionDetails.exception?.description || r.exceptionDetails.text));
+      return r.result?.value;
+    },
     async key(code, type) {
       const [vk, key] = KEYS[code] || [0, code];
       await send("Input.dispatchKeyEvent", { type, code, key, windowsVirtualKeyCode: vk, nativeVirtualKeyCode: vk });

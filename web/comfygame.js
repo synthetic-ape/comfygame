@@ -86,6 +86,8 @@ const CSS = `
 .cg-tpl{display:flex;gap:10px;align-items:flex-start;text-align:left}
 .cg-tpl .ic{font-size:22px;line-height:1}
 .cg-empty{color:var(--descrip-text,#999);text-align:center;padding:30px 10px}
+.cg-check{display:flex;gap:7px;align-items:center;font-size:12px;color:var(--descrip-text,#aaa);cursor:pointer}
+.cg-check input{margin:0;flex:none}
 `;
 
 function injectCss() {
@@ -297,8 +299,8 @@ function renderPanel(container) {
       idea,
       el("div", { class: "cg-row" }, el("div", { class: "cg-field" }, el("label", {}, "Provider"), provider), el("div", { class: "cg-field" }, el("label", {}, "Model"), model)),
       el("div", { class: "cg-row" }, el("div", { class: "cg-field" }, el("label", {}, "Genre"), genre), el("div", { class: "cg-field" }, el("label", {}, "Effort"), effort)),
-      el("label", { class: "cg-row cg-sub" }, code, "Let the AI write a custom mechanic (JavaScript mod)"),
-      el("label", { class: "cg-row cg-sub" }, revise, "Revise the game currently in the Play tab"),
+      el("label", { class: "cg-check" }, code, "Let the AI write a custom mechanic (JavaScript mod)"),
+      el("label", { class: "cg-check" }, revise, "Revise the game currently in the Play tab"),
       el("div", { class: "cg-row" },
         el("button", { class: "cg-btn primary", onclick: (e) => run(e.target) }, "✨ Design & build"),
         el("button", { class: "cg-btn", title: "Load the AI workflow so you can see and edit every step", onclick: () => loadTemplate("06_ai_designer_claude", () => {
@@ -373,7 +375,8 @@ app.registerExtension({
       const r = onCreated ? onCreated.apply(this, arguments) : undefined;
       injectCss();
       this.cgPlayer = makePlayer();
-      this.addDOMWidget("game_player", "cg_player", this.cgPlayer.el, { serialize: false, hideOnZoom: false, getMinHeight: () => 260 });
+      const w = this.addDOMWidget("game_player", "cg_player", this.cgPlayer.el, { serialize: false, hideOnZoom: false, getMinHeight: () => 260 });
+      w.serialize = false; // keep widgets_values aligned with the real inputs when the workflow is reloaded
       this.setSize([Math.max(this.size[0], 440), Math.max(this.size[1], 520)]);
       return r;
     };

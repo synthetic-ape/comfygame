@@ -1,0 +1,498 @@
+{
+ "id": "00000000-0000-0000-0000-000000000000",
+ "revision": 0,
+ "last_node_id": 5,
+ "last_link_id": 3,
+ "nodes": [
+  {
+   "id": 1,
+   "type": "MarkdownNote",
+   "pos": [
+    40,
+    40
+   ],
+   "size": [
+    460,
+    300
+   ],
+   "flags": {},
+   "order": 0,
+   "mode": 0,
+   "inputs": [],
+   "outputs": [],
+   "properties": {},
+   "widgets_values": [
+    "# Offline AI designer\n\nA text model runs **inside ComfyUI** (no internet, no API). Here it is Qwen3-4B, the text encoder that ships with Z-Image Turbo; any text-generation model that **Load CLIP** supports works (pick the matching type).\n\nTakes ~1-2 minutes on a 16 GB GPU. For Claude, use template 06 or the AI Studio tab."
+   ],
+   "widgets_values_named": {
+    "text": "# Offline AI designer\n\nA text model runs **inside ComfyUI** (no internet, no API). Here it is Qwen3-4B, the text encoder that ships with Z-Image Turbo; any text-generation model that **Load CLIP** supports works (pick the matching type).\n\nTakes ~1-2 minutes on a 16 GB GPU. For Claude, use template 06 or the AI Studio tab."
+   },
+   "color": "#432",
+   "bgcolor": "#653"
+  },
+  {
+   "id": 2,
+   "type": "CLIPLoader",
+   "pos": [
+    40,
+    400
+   ],
+   "size": [
+    300,
+    106
+   ],
+   "flags": {},
+   "order": 1,
+   "mode": 0,
+   "inputs": [
+    {
+     "localized_name": "clip_name",
+     "name": "clip_name",
+     "type": "COMBO",
+     "widget": {
+      "name": "clip_name"
+     },
+     "link": null
+    },
+    {
+     "localized_name": "type",
+     "name": "type",
+     "type": "COMBO",
+     "widget": {
+      "name": "type"
+     },
+     "link": null
+    },
+    {
+     "localized_name": "device",
+     "name": "device",
+     "shape": 7,
+     "type": "COMBO",
+     "widget": {
+      "name": "device"
+     },
+     "link": null
+    }
+   ],
+   "outputs": [
+    {
+     "localized_name": "CLIP",
+     "name": "CLIP",
+     "type": "CLIP",
+     "links": [
+      1
+     ]
+    }
+   ],
+   "properties": {
+    "Node name for S&R": "CLIPLoader",
+    "models": [
+     {
+      "name": "qwen_3_4b.safetensors",
+      "url": "https://huggingface.co/Comfy-Org/z_image_turbo/resolve/main/split_files/text_encoders/qwen_3_4b.safetensors",
+      "directory": "text_encoders"
+     }
+    ]
+   },
+   "widgets_values": [
+    "qwen_3_4b.safetensors",
+    "lumina2",
+    "default"
+   ],
+   "widgets_values_named": {
+    "clip_name": "qwen_3_4b.safetensors",
+    "type": "lumina2",
+    "device": "default"
+   }
+  },
+  {
+   "id": 3,
+   "type": "ComfyGameAIDesigner",
+   "pos": [
+    40,
+    560
+   ],
+   "size": [
+    460,
+    420
+   ],
+   "flags": {},
+   "order": 2,
+   "mode": 0,
+   "inputs": [
+    {
+     "localized_name": "clip",
+     "name": "clip",
+     "shape": 7,
+     "type": "CLIP",
+     "link": 1
+    },
+    {
+     "localized_name": "revise_game",
+     "name": "revise_game",
+     "shape": 7,
+     "type": "CG_GAME",
+     "link": null
+    },
+    {
+     "localized_name": "idea",
+     "name": "idea",
+     "type": "STRING",
+     "widget": {
+      "name": "idea"
+     },
+     "link": null
+    },
+    {
+     "localized_name": "provider",
+     "name": "provider",
+     "type": "COMBO",
+     "widget": {
+      "name": "provider"
+     },
+     "link": null
+    },
+    {
+     "localized_name": "model",
+     "name": "model",
+     "type": "STRING",
+     "widget": {
+      "name": "model"
+     },
+     "link": null
+    },
+    {
+     "localized_name": "effort",
+     "name": "effort",
+     "type": "COMBO",
+     "widget": {
+      "name": "effort"
+     },
+     "link": null
+    },
+    {
+     "localized_name": "genre",
+     "name": "genre",
+     "type": "COMBO",
+     "widget": {
+      "name": "genre"
+     },
+     "link": null
+    },
+    {
+     "localized_name": "custom_mechanic_code",
+     "name": "custom_mechanic_code",
+     "type": "BOOLEAN",
+     "widget": {
+      "name": "custom_mechanic_code"
+     },
+     "link": null
+    },
+    {
+     "localized_name": "seed",
+     "name": "seed",
+     "type": "INT",
+     "widget": {
+      "name": "seed"
+     },
+     "link": null
+    }
+   ],
+   "outputs": [
+    {
+     "localized_name": "game",
+     "name": "game",
+     "type": "CG_GAME",
+     "links": [
+      2,
+      3
+     ]
+    },
+    {
+     "localized_name": "player_prompt",
+     "name": "player_prompt",
+     "type": "STRING",
+     "links": null
+    },
+    {
+     "localized_name": "enemy1_prompt",
+     "name": "enemy1_prompt",
+     "type": "STRING",
+     "links": null
+    },
+    {
+     "localized_name": "enemy2_prompt",
+     "name": "enemy2_prompt",
+     "type": "STRING",
+     "links": null
+    },
+    {
+     "localized_name": "enemy3_prompt",
+     "name": "enemy3_prompt",
+     "type": "STRING",
+     "links": null
+    },
+    {
+     "localized_name": "boss_prompt",
+     "name": "boss_prompt",
+     "type": "STRING",
+     "links": null
+    },
+    {
+     "localized_name": "background_prompt",
+     "name": "background_prompt",
+     "type": "STRING",
+     "links": null
+    },
+    {
+     "localized_name": "tiles_prompt",
+     "name": "tiles_prompt",
+     "type": "STRING",
+     "links": null
+    },
+    {
+     "localized_name": "design_json",
+     "name": "design_json",
+     "type": "STRING",
+     "links": null
+    }
+   ],
+   "properties": {
+    "Node name for S&R": "ComfyGameAIDesigner"
+   },
+   "widgets_values": [
+    "A penguin chef slides across icy kitchens fighting angry vegetables",
+    "comfy_local",
+    "",
+    "low",
+    "arena",
+    false,
+    8
+   ],
+   "widgets_values_named": {
+    "idea": "A penguin chef slides across icy kitchens fighting angry vegetables",
+    "provider": "comfy_local",
+    "model": "",
+    "effort": "low",
+    "genre": "arena",
+    "custom_mechanic_code": false,
+    "seed": 8
+   },
+   "color": "#7a5a14",
+   "bgcolor": "#5e4510"
+  },
+  {
+   "id": 4,
+   "type": "ComfyGameInfo",
+   "pos": [
+    560,
+    760
+   ],
+   "size": [
+    440,
+    240
+   ],
+   "flags": {},
+   "order": 3,
+   "mode": 0,
+   "inputs": [
+    {
+     "localized_name": "game",
+     "name": "game",
+     "type": "CG_GAME",
+     "link": 3
+    }
+   ],
+   "outputs": [
+    {
+     "localized_name": "summary",
+     "name": "summary",
+     "type": "STRING",
+     "links": null
+    }
+   ],
+   "properties": {
+    "Node name for S&R": "ComfyGameInfo"
+   },
+   "color": "#1d4d55",
+   "bgcolor": "#163c42"
+  },
+  {
+   "id": 5,
+   "type": "ComfyGameBuild",
+   "pos": [
+    560,
+    40
+   ],
+   "size": [
+    620,
+    640
+   ],
+   "flags": {},
+   "order": 4,
+   "mode": 0,
+   "inputs": [
+    {
+     "localized_name": "game",
+     "name": "game",
+     "type": "CG_GAME",
+     "link": 2
+    },
+    {
+     "localized_name": "player",
+     "name": "player",
+     "shape": 7,
+     "type": "CG_ACTOR",
+     "link": null
+    },
+    {
+     "localized_name": "enemies",
+     "name": "enemies",
+     "shape": 7,
+     "type": "CG_ROSTER",
+     "link": null
+    },
+    {
+     "localized_name": "boss",
+     "name": "boss",
+     "shape": 7,
+     "type": "CG_ACTOR",
+     "link": null
+    },
+    {
+     "localized_name": "levels",
+     "name": "levels",
+     "shape": 7,
+     "type": "CG_LEVELS",
+     "link": null
+    },
+    {
+     "localized_name": "tileset",
+     "name": "tileset",
+     "shape": 7,
+     "type": "CG_TILESET",
+     "link": null
+    },
+    {
+     "localized_name": "background",
+     "name": "background",
+     "shape": 7,
+     "type": "CG_BACKDROP",
+     "link": null
+    },
+    {
+     "localized_name": "music",
+     "name": "music",
+     "shape": 7,
+     "type": "CG_MUSIC",
+     "link": null
+    },
+    {
+     "localized_name": "sfx",
+     "name": "sfx",
+     "shape": 7,
+     "type": "CG_SFX",
+     "link": null
+    },
+    {
+     "localized_name": "script",
+     "name": "script",
+     "shape": 7,
+     "type": "STRING",
+     "link": null
+    },
+    {
+     "localized_name": "export_name",
+     "name": "export_name",
+     "shape": 7,
+     "type": "STRING",
+     "widget": {
+      "name": "export_name"
+     },
+     "link": null
+    },
+    {
+     "localized_name": "compress_music",
+     "name": "compress_music",
+     "shape": 7,
+     "type": "BOOLEAN",
+     "widget": {
+      "name": "compress_music"
+     },
+     "link": null
+    }
+   ],
+   "outputs": [
+    {
+     "localized_name": "html_path",
+     "name": "html_path",
+     "type": "STRING",
+     "links": null
+    },
+    {
+     "localized_name": "thumbnail",
+     "name": "thumbnail",
+     "type": "IMAGE",
+     "links": null
+    },
+    {
+     "localized_name": "game",
+     "name": "game",
+     "type": "CG_GAME",
+     "links": null
+    }
+   ],
+   "properties": {
+    "Node name for S&R": "ComfyGameBuild"
+   },
+   "widgets_values": [
+    "",
+    true
+   ],
+   "widgets_values_named": {
+    "export_name": "",
+    "compress_music": true
+   },
+   "color": "#1d4d55",
+   "bgcolor": "#163c42"
+  }
+ ],
+ "links": [
+  [
+   1,
+   2,
+   0,
+   3,
+   0,
+   "CLIP"
+  ],
+  [
+   2,
+   3,
+   0,
+   5,
+   0,
+   "CG_GAME"
+  ],
+  [
+   3,
+   3,
+   0,
+   4,
+   0,
+   "CG_GAME"
+  ]
+ ],
+ "groups": [],
+ "config": {},
+ "extra": {
+  "ds": {
+   "scale": 0.8771929824561403,
+   "offset": [
+    416,
+    80
+   ]
+  }
+ },
+ "version": 0.4
+}

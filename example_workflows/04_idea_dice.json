@@ -1,0 +1,359 @@
+{
+ "id": "00000000-0000-0000-0000-000000000000",
+ "revision": 0,
+ "last_node_id": 4,
+ "last_link_id": 2,
+ "nodes": [
+  {
+   "id": 1,
+   "type": "MarkdownNote",
+   "pos": [
+    40,
+    40
+   ],
+   "size": [
+    440,
+    260
+   ],
+   "flags": {},
+   "order": 0,
+   "mode": 0,
+   "inputs": [],
+   "outputs": [],
+   "properties": {},
+   "widgets_values": [
+    "# Idea Dice\n\nEvery **Run** rolls a new, coherent game: genre, theme, title, hero, enemies with behaviours, boss, story, music style.\n\nNo AI and no models needed. Set *control after generate* to **fixed** to keep a game you like."
+   ],
+   "widgets_values_named": {
+    "text": "# Idea Dice\n\nEvery **Run** rolls a new, coherent game: genre, theme, title, hero, enemies with behaviours, boss, story, music style.\n\nNo AI and no models needed. Set *control after generate* to **fixed** to keep a game you like."
+   },
+   "color": "#432",
+   "bgcolor": "#653"
+  },
+  {
+   "id": 2,
+   "type": "ComfyGameIdeaDice",
+   "pos": [
+    40,
+    360
+   ],
+   "size": [
+    300,
+    290
+   ],
+   "flags": {},
+   "order": 1,
+   "mode": 0,
+   "inputs": [
+    {
+     "localized_name": "seed",
+     "name": "seed",
+     "type": "INT",
+     "widget": {
+      "name": "seed"
+     },
+     "link": null
+    },
+    {
+     "localized_name": "genre",
+     "name": "genre",
+     "type": "COMBO",
+     "widget": {
+      "name": "genre"
+     },
+     "link": null
+    },
+    {
+     "localized_name": "theme",
+     "name": "theme",
+     "type": "COMBO",
+     "widget": {
+      "name": "theme"
+     },
+     "link": null
+    }
+   ],
+   "outputs": [
+    {
+     "localized_name": "game",
+     "name": "game",
+     "type": "CG_GAME",
+     "links": [
+      1,
+      2
+     ]
+    },
+    {
+     "localized_name": "player_prompt",
+     "name": "player_prompt",
+     "type": "STRING",
+     "links": null
+    },
+    {
+     "localized_name": "enemy1_prompt",
+     "name": "enemy1_prompt",
+     "type": "STRING",
+     "links": null
+    },
+    {
+     "localized_name": "enemy2_prompt",
+     "name": "enemy2_prompt",
+     "type": "STRING",
+     "links": null
+    },
+    {
+     "localized_name": "enemy3_prompt",
+     "name": "enemy3_prompt",
+     "type": "STRING",
+     "links": null
+    },
+    {
+     "localized_name": "boss_prompt",
+     "name": "boss_prompt",
+     "type": "STRING",
+     "links": null
+    },
+    {
+     "localized_name": "background_prompt",
+     "name": "background_prompt",
+     "type": "STRING",
+     "links": null
+    },
+    {
+     "localized_name": "tiles_prompt",
+     "name": "tiles_prompt",
+     "type": "STRING",
+     "links": null
+    },
+    {
+     "localized_name": "design_json",
+     "name": "design_json",
+     "type": "STRING",
+     "links": null
+    }
+   ],
+   "properties": {
+    "Node name for S&R": "ComfyGameIdeaDice"
+   },
+   "widgets_values": [
+    42,
+    "randomize",
+    "any",
+    "any"
+   ],
+   "widgets_values_named": {
+    "seed": 42,
+    "control_after_generate": "randomize",
+    "genre": "any",
+    "theme": "any"
+   },
+   "color": "#7a5a14",
+   "bgcolor": "#5e4510"
+  },
+  {
+   "id": 3,
+   "type": "ComfyGameInfo",
+   "pos": [
+    40,
+    820
+   ],
+   "size": [
+    440,
+    240
+   ],
+   "flags": {},
+   "order": 2,
+   "mode": 0,
+   "inputs": [
+    {
+     "localized_name": "game",
+     "name": "game",
+     "type": "CG_GAME",
+     "link": 2
+    }
+   ],
+   "outputs": [
+    {
+     "localized_name": "summary",
+     "name": "summary",
+     "type": "STRING",
+     "links": null
+    }
+   ],
+   "properties": {
+    "Node name for S&R": "ComfyGameInfo"
+   },
+   "color": "#1d4d55",
+   "bgcolor": "#163c42"
+  },
+  {
+   "id": 4,
+   "type": "ComfyGameBuild",
+   "pos": [
+    540,
+    40
+   ],
+   "size": [
+    620,
+    640
+   ],
+   "flags": {},
+   "order": 3,
+   "mode": 0,
+   "inputs": [
+    {
+     "localized_name": "game",
+     "name": "game",
+     "type": "CG_GAME",
+     "link": 1
+    },
+    {
+     "localized_name": "player",
+     "name": "player",
+     "shape": 7,
+     "type": "CG_ACTOR",
+     "link": null
+    },
+    {
+     "localized_name": "enemies",
+     "name": "enemies",
+     "shape": 7,
+     "type": "CG_ROSTER",
+     "link": null
+    },
+    {
+     "localized_name": "boss",
+     "name": "boss",
+     "shape": 7,
+     "type": "CG_ACTOR",
+     "link": null
+    },
+    {
+     "localized_name": "levels",
+     "name": "levels",
+     "shape": 7,
+     "type": "CG_LEVELS",
+     "link": null
+    },
+    {
+     "localized_name": "tileset",
+     "name": "tileset",
+     "shape": 7,
+     "type": "CG_TILESET",
+     "link": null
+    },
+    {
+     "localized_name": "background",
+     "name": "background",
+     "shape": 7,
+     "type": "CG_BACKDROP",
+     "link": null
+    },
+    {
+     "localized_name": "music",
+     "name": "music",
+     "shape": 7,
+     "type": "CG_MUSIC",
+     "link": null
+    },
+    {
+     "localized_name": "sfx",
+     "name": "sfx",
+     "shape": 7,
+     "type": "CG_SFX",
+     "link": null
+    },
+    {
+     "localized_name": "script",
+     "name": "script",
+     "shape": 7,
+     "type": "STRING",
+     "link": null
+    },
+    {
+     "localized_name": "export_name",
+     "name": "export_name",
+     "shape": 7,
+     "type": "STRING",
+     "widget": {
+      "name": "export_name"
+     },
+     "link": null
+    },
+    {
+     "localized_name": "compress_music",
+     "name": "compress_music",
+     "shape": 7,
+     "type": "BOOLEAN",
+     "widget": {
+      "name": "compress_music"
+     },
+     "link": null
+    }
+   ],
+   "outputs": [
+    {
+     "localized_name": "html_path",
+     "name": "html_path",
+     "type": "STRING",
+     "links": null
+    },
+    {
+     "localized_name": "thumbnail",
+     "name": "thumbnail",
+     "type": "IMAGE",
+     "links": null
+    },
+    {
+     "localized_name": "game",
+     "name": "game",
+     "type": "CG_GAME",
+     "links": null
+    }
+   ],
+   "properties": {
+    "Node name for S&R": "ComfyGameBuild"
+   },
+   "widgets_values": [
+    "",
+    true
+   ],
+   "widgets_values_named": {
+    "export_name": "",
+    "compress_music": true
+   },
+   "color": "#1d4d55",
+   "bgcolor": "#163c42"
+  }
+ ],
+ "links": [
+  [
+   1,
+   2,
+   0,
+   4,
+   0,
+   "CG_GAME"
+  ],
+  [
+   2,
+   2,
+   0,
+   3,
+   0,
+   "CG_GAME"
+  ]
+ ],
+ "groups": [],
+ "config": {},
+ "extra": {
+  "ds": {
+   "scale": 0.8333333333333334,
+   "offset": [
+    480,
+    80
+   ]
+  }
+ },
+ "version": 0.4
+}

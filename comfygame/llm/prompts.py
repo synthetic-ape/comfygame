@@ -11,7 +11,9 @@ Return an object with any of these hooks:
   api.text(str, x, y, {color, scale, align:"left|center|right", outline})   (screen coords, call it inside draw)
   api.float(str, worldX, worldY, color)   api.burst(worldX, worldY, count, {colors:[...], speed, life, g})
   api.spawnEnemy(indexOrId, worldX, worldY)   api.toast(msg)   api.after(sec, fn)   api.every(sec, fn)   api.rand(a, b)
-  api.win()   api.hurtPlayer(n)   api.theme {text, accent, accent2, gold, danger, good, shadow}
+  api.damage(enemy, n)   api.kill(enemy)   api.win()   api.hurtPlayer(n)   api.theme {text, accent, accent2, gold, danger, good, shadow}
+  Drawing inside draw() (screen coords): api.rect(x, y, w, h, color)   api.bar(x, y, w, h, fraction, color)   api.circle(x, y, r, color)
+  Never modify enemy.hp directly - use api.damage / api.kill.
 World coordinates: world.cam.vx / world.cam.vy is the top-left of the view (screen = world - cam).
 Keep scripts short (under 60 lines), defensive (check objects exist), and fun. Example:
   let combo = 0, timer = 0;
