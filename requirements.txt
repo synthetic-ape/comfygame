@@ -1,0 +1,2 @@
+# ComfyGame needs nothing beyond what ComfyUI already ships (numpy, Pillow, torch, scipy, av).
+# Optional, only for the "anthropic_api" AI provider:  pip install -r requirements-ai.txt

@@ -1,0 +1,3 @@
+# Optional: Claude via API key (the "anthropic_api" provider). The "claude_code" provider (your Claude
+# subscription through the Claude Code CLI) and all local providers need no Python packages.
+anthropic

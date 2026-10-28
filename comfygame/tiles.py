@@ -9,8 +9,6 @@
 """
 import random
 
-import numpy as np
-
 from . import palettes as P
 from . import pixel as px
 

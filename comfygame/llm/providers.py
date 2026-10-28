@@ -210,11 +210,8 @@ def write_script(request, provider="claude_code", model="", effort="medium", cli
 def status():
     """What can run right now (shown in the ComfyGame panel)."""
     cfg = load_config()
-    try:
-        import anthropic  # noqa: F401
-        sdk = True
-    except ImportError:
-        sdk = False
+    import importlib.util
+    sdk = importlib.util.find_spec("anthropic") is not None
     return {
         "claude_code": {"available": bool(find_claude()), "path": find_claude()},
         "anthropic_api": {"available": sdk and bool(cfg.get("anthropic_api_key") or os.environ.get("ANTHROPIC_API_KEY")), "sdk": sdk,

@@ -4,8 +4,6 @@ A game is a plain dict. Nodes fill in parts; `complete()` generates whatever is 
 two-node graph (Game Setup -> Build) already produces a full, polished game. `runtime_spec()` turns it
 into the JSON the JavaScript runtime plays.
 """
-import copy
-import random
 import re
 import time
 
@@ -119,7 +117,6 @@ def complete(game, progress=None):
     genre = g["genre"]
     d = GENRE_DEFAULTS[genre]
     seed = g["seed"]
-    rng = random.Random(seed)
     pal = palette_of(g)
     g["palette"] = pal
     theme = theme_of(g)
@@ -313,7 +310,3 @@ def summary(game):
     if game.get("levels"):
         lines.append("Levels: " + ", ".join(l.get("name", "?") for l in game["levels"]))
     return "\n".join(lines)
-
-
-def deepcopy_light(game):
-    return copy.copy(game)

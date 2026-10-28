@@ -203,14 +203,6 @@ def to_game(design, seed=None):
     return g
 
 
-def apply_level_names(game):
-    names = (game.get("level_settings") or {}).get("names") or []
-    for i, lv in enumerate(game.get("levels") or []):
-        if i < len(names) and names[i]:
-            lv["name"] = names[i]
-    return game
-
-
 def art_prompts(game, style=None):
     """Prompts for an image model, one per asset slot (consistent style suffix)."""
     art = (game.get("extra") or {}).get("art") or {}

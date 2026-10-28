@@ -1,5 +1,5 @@
-// Builds example_workflows/*.json inside the real ComfyUI frontend (so the JSON is exactly what ComfyUI saves),
-// and saves a screenshot of each graph to docs/img/. Needs ComfyUI running with ComfyGame installed.
+// Builds example_workflows/*.json inside the real ComfyUI frontend (so the JSON is exactly what ComfyUI saves).
+// Needs ComfyUI running with ComfyGame installed.
 //   node tools/make_workflows.mjs [http://127.0.0.1:8188] [only-this-name]
 import fs from "node:fs";
 import path from "node:path";
@@ -244,7 +244,6 @@ const b = await launch({ size: "1800x1000" });
 let failed = 0;
 try {
   fs.mkdirSync(path.join(ROOT, "example_workflows"), { recursive: true });
-  fs.mkdirSync(path.join(ROOT, "docs", "img"), { recursive: true });
   for (const [name, spec] of Object.entries(WORKFLOWS)) {
     if (ONLY && name !== ONLY) continue;
     try {
@@ -253,8 +252,6 @@ try {
       await new Promise((r) => setTimeout(r, 8000));
       const wf = await b.eval(`(${PAGE_BUILD.toString()})(${JSON.stringify(spec)})`);
       fs.writeFileSync(path.join(ROOT, "example_workflows", name + ".json"), JSON.stringify(wf, null, 1));
-      await new Promise((r) => setTimeout(r, 800));
-      await b.shot(path.join(ROOT, "docs", "img", name + ".png"));
       console.log("ok", name, wf.nodes.length, "nodes");
     } catch (e) {
       failed++;

@@ -77,21 +77,26 @@ async function testGame(base, id, out) {
     report.state = st;
     await BOTS[genre](b, 5000);
     await shot("play2");
-    // walk through every level with forced wins to exercise transitions, boss levels and the victory screen
+    // walk through every remaining level with forced wins to exercise transitions, boss levels and the victory screen
     const levels = await b.eval("CG.game.spec.levels.length");
-    for (let i = 0; i < levels; i++) {
+    if ((await b.eval("CG.game.scene")) === "gameover") { report.notes.push("bot ran out of lives (ok)"); await b.press("Enter"); await sleep(1500); }
+    await b.eval("CG.game.lives = 99");
+    for (let guard = 0; guard < levels + 2 && (await b.eval("CG.game.scene")) !== "victory"; guard++) {
+      const scene = await b.eval("CG.game.scene");
+      if (scene === "clear") { await b.press("Enter"); await sleep(1400); continue; }
+      const cur = await b.eval("CG.game.levelIndex");
       await b.eval("CG.game.world && CG.game.world.forceWin && CG.game.world.forceWin()");
       await sleep(2400);
       const sc = await b.eval("CG.game.scene");
-      if (sc !== "clear") report.notes.push(`level ${i}: expected clear, got ${sc}`);
-      if (i === 0) await shot("clear");
+      if (sc !== "clear") { report.ok = false; report.notes.push(`level ${cur}: expected clear, got ${sc}`); }
+      if (guard === 0) await shot("clear");
       await b.press("Enter");
       await sleep(1400);
-      if (i < levels - 1) {
+      if (cur < levels - 1) {
         const lvl = await b.eval("CG.game.levelIndex");
-        if (lvl !== i + 1) report.notes.push(`expected level ${i + 1}, got ${lvl}`);
+        if (lvl !== cur + 1) { report.ok = false; report.notes.push(`expected level ${cur + 1}, got ${lvl}`); }
         await BOTS[genre](b, 1200);
-        if (i === levels - 2) await shot("lastlevel");
+        if (cur + 1 === levels - 1) await shot("lastlevel");
       }
     }
     const fin = await b.eval("CG.game.scene");

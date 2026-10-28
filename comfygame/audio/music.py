@@ -78,9 +78,8 @@ def compose(mood="adventure", seed=0, tempo=0, bars=16, key=None, instruments="n
     dens = M["density"]
     rhythm_pool = RHYTHMS["busy"] if dens > 0.68 else RHYTHMS["medium"] if dens > 0.42 else RHYTHMS["sparse"] + RHYTHMS["medium"][:2]
 
-    def make_motif(start_pitch):
+    def make_motif():
         motif = []
-        p = start_pitch
         for bar in range(2):
             rh = rng.choice(rhythm_pool)
             notes = []
@@ -95,7 +94,7 @@ def compose(mood="adventure", seed=0, tempo=0, bars=16, key=None, instruments="n
     lead_lo, lead_hi = root + 12, root + 26
     melody = []  # (bar, step, midi, length_steps)
     pitch = root + 12 + scale[2]
-    motifs = [make_motif(pitch), make_motif(pitch)]
+    motifs = [make_motif(), make_motif()]
 
     def scale_snap(p):
         best = None
@@ -123,10 +122,7 @@ def compose(mood="adventure", seed=0, tempo=0, bars=16, key=None, instruments="n
                 cands = [c for c in cands if lead_lo <= c <= lead_hi] or chord
                 target = min(cands, key=lambda c: abs(c - (pitch + step * 2 + lift)))
             else:
-                idx = None
-                pcs = [scale_snap(pitch + d) for d in range(-4, 5)]
                 target = scale_snap(pitch + step * 2 + lift)
-                del idx, pcs
             if target > lead_hi:
                 target -= 12
             if target < lead_lo:

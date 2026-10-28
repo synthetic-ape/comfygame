@@ -83,7 +83,7 @@ const CSS = `
 .cg-busy{display:flex;align-items:center;gap:8px;color:#3ec6d4;font-size:12px}
 .cg-spin{width:14px;height:14px;border:2px solid #3ec6d4;border-top-color:transparent;border-radius:50%;animation:cgspin .8s linear infinite}
 @keyframes cgspin{to{transform:rotate(360deg)}}
-.cg-tpl{display:flex;gap:10px;align-items:flex-start;text-align:left}
+.cg-tpl{display:flex;gap:10px;align-items:flex-start;text-align:left;white-space:normal;width:100%;box-sizing:border-box}
 .cg-tpl .ic{font-size:22px;line-height:1}
 .cg-empty{color:var(--descrip-text,#999);text-align:center;padding:30px 10px}
 .cg-check{display:flex;gap:7px;align-items:center;font-size:12px;color:var(--descrip-text,#aaa);cursor:pointer}

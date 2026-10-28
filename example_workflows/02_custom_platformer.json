@@ -247,7 +247,7 @@
     "The sky crystals were stolen from the mountain shrine. Rusty the fox grabs a scarf and starts climbing.",
     "The crystals glow again. Rusty naps on the highest peak, very proud.",
     false,
-    "480x270"
+    "auto"
    ],
    "widgets_values_named": {
     "title": "Sky Fox",
@@ -261,7 +261,7 @@
     "intro_story": "The sky crystals were stolen from the mountain shrine. Rusty the fox grabs a scarf and starts climbing.",
     "ending_text": "The crystals glow again. Rusty naps on the highest peak, very proud.",
     "crt_filter": false,
-    "resolution": "480x270"
+    "resolution": "auto"
    },
    "color": "#1d4d55",
    "bgcolor": "#163c42"

@@ -182,7 +182,7 @@
     "",
     "",
     false,
-    "480x270"
+    "auto"
    ],
    "widgets_values_named": {
     "title": "Moss Knight",
@@ -196,7 +196,7 @@
     "intro_story": "",
     "ending_text": "",
     "crt_filter": false,
-    "resolution": "480x270"
+    "resolution": "auto"
    },
    "color": "#1d4d55",
    "bgcolor": "#163c42"

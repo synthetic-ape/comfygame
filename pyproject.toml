@@ -1,0 +1,17 @@
+[project]
+name = "comfygame"
+description = "Turn ComfyUI into a game engine: build polished, playable HTML5 games (platformer, arena survivor, dungeon crawler, space shooter) from nodes - fully procedural, or with local image models and LLMs (Claude, Ollama, models inside ComfyUI)."
+version = "1.0.0"
+license = { file = "LICENSE" }
+readme = "README.md"
+requires-python = ">=3.10"
+dependencies = []
+classifiers = ["Operating System :: OS Independent"]
+
+[project.optional-dependencies]
+ai = ["anthropic"]
+
+[tool.comfy]
+PublisherId = ""
+DisplayName = "ComfyGame"
+Icon = ""
