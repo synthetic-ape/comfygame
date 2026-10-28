@@ -142,8 +142,17 @@ def to_game(design, seed=None):
     title = str(d.get("title") or "Untitled")[:40]
     seed = int(seed if seed is not None else d.get("seed", _seed_from(title))) & 0x7FFFFFFF
     theme = theme_of_text(d.get("theme") or d.get("background")) or G.GENRE_DEFAULTS[genre]["bg"]
+    base_pal = palettes.resolve(G.THEME_PALETTE.get(theme, "forest"))
     pal = d.get("palette")
-    pal = palettes.resolve(pal) if pal else palettes.resolve(G.THEME_PALETTE.get(theme, "forest"))
+    if isinstance(pal, str) and pal.strip().lower() in palettes.PALETTES:
+        pal = palettes.resolve(pal)
+    elif isinstance(pal, (list, tuple, str)) and pal:
+        # custom colours from a designer flavour the theme's curated palette instead of replacing it,
+        # so a washed-out or tiny list can't ruin the art
+        extra = [c for c in palettes.resolve(pal) if c not in base_pal] if any(palettes.valid_color(c) for c in (pal if isinstance(pal, (list, tuple)) else str(pal).replace(",", " ").split())) else []
+        pal = (base_pal + extra)[:22]
+    else:
+        pal = base_pal
     story = d.get("story") or {}
     g = G.new_game(title, genre, seed, d.get("difficulty", "normal"), int(_num(d.get("lives"), 3, 1, 9)), str(d.get("tagline") or "")[:90],
                    str(story.get("intro") or d.get("intro") or "")[:600], str(story.get("ending") or d.get("ending") or "")[:400], pal, theme,

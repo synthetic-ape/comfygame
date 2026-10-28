@@ -53,6 +53,13 @@ def test_design_json_is_forgiving():
     assert design.extract_json(truncated)["title"] == "Half"
 
 
+def test_bad_palettes_never_leak_magenta():
+    from comfygame import palettes
+    assert palettes.resolve(["light blue", "#zzz", "#12345", "white"]) == palettes.PALETTES["forest"]
+    g = design.to_game({"title": "X", "genre": "platformer", "theme": "ice", "palette": ["#ffffff", "#cccccc", "pale pink", "#000"]})
+    assert "#ff00ff" not in g["palette"] and len(g["palette"]) >= 8
+
+
 def test_idea_dice_designs_are_valid():
     for seed in range(30):
         d = ideas.roll(seed)

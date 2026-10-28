@@ -11,6 +11,10 @@ classifiers = ["Operating System :: OS Independent"]
 [project.optional-dependencies]
 ai = ["anthropic"]
 
+[project.urls]
+Repository = "https://github.com/synthetic-ape/comfygame"
+Documentation = "https://github.com/synthetic-ape/comfygame/blob/main/docs/GUIDE.md"
+
 [tool.comfy]
 PublisherId = ""
 DisplayName = "ComfyGame"

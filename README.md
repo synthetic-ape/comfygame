@@ -4,9 +4,17 @@
 
 ![Six games made with ComfyGame](docs/img/hero.png)
 
+**▶ [Watch the 1:46 demo video](https://github.com/synthetic-ape/comfygame/releases/download/v1.0.0/comfygame-demo.mp4)**
+
 ComfyGame works **fully offline with no models at all**: every asset can be generated procedurally. When you want more, it plugs into what ComfyUI is great at: **local image models** draw your cast and backgrounds, and **LLMs** (Claude through your subscription or an API key, Ollama / LM Studio, or a text model running inside ComfyUI) design whole games from one sentence.
 
-![A game playing inside the Build & Play node](docs/img/game_in_node.png)
+<p align="center"><img src="docs/media/game_in_node.gif" width="760" alt="Press Run, then play the game right inside the Build & Play node"></p>
+
+| Four genres from one node graph | Describe a game, Claude designs it |
+|---|---|
+| ![Platformer, arena survivor, dungeon crawler, space shooter](docs/media/four_genres.gif) | ![AI Studio: type an idea, get a playable game](docs/media/ai_studio.gif) |
+| **Local AI art: renders become pixel sprites** | **Real game feel** |
+| ![Z-Image renders pixelate into game sprites](docs/media/ai_art.gif) | ![Platformer gameplay](docs/media/platformer.gif) |
 
 ## Highlights
 
@@ -28,7 +36,7 @@ ComfyGame needs no extra Python packages.
 
 ```bash
 cd ComfyUI/custom_nodes
-git clone <this-repository-url> comfygame
+git clone https://github.com/synthetic-ape/comfygame comfygame
 ```
 
 Restart ComfyUI. With **ComfyUI-Manager** you can use *Install via Git URL* instead. ComfyUI **Desktop** users: the `custom_nodes` folder is inside your install folder (e.g. `ComfyUI-Installs/<name>/ComfyUI/custom_nodes`).
@@ -37,7 +45,7 @@ Requirements: a recent ComfyUI with the V3 node API and the new frontend (tested
 
 ## Your first game in a minute
 
-1. Open the **ComfyGame** tab in the left sidebar (gamepad icon) → **Create** → **Quick platformer**. Or use *Roll & build* for an instant random game.
+1. Open the **Games** tab in the left sidebar (gamepad icon) → **Create** → **Quick platformer**. Or use *Roll & build* for an instant random game.
 2. Press **Run**.
 3. Click the game inside **Build & Play Game**. Arrows/WASD to move, Space to jump, Esc to pause.
 

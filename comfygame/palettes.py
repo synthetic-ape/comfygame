@@ -1,6 +1,7 @@
 """Curated palettes and color helpers. Everything here is plain Python (no numpy needed)."""
 import colorsys
 import math
+import re
 
 PALETTES = {
     "forest": ["#141b1e", "#22313a", "#2f4f3a", "#3f7a3f", "#7ab04a", "#c7e07a", "#f2efc8", "#6e4a30", "#a9733f", "#e2b073", "#4b7bb0", "#9fd3ea", "#d95a4a", "#f2c14e"],
@@ -103,21 +104,31 @@ def ramp(base, n=3):
     return out
 
 
+_HEX = re.compile(r"^#?([0-9a-fA-F]{3}|[0-9a-fA-F]{6})$")
+
+
+def valid_color(c):
+    if isinstance(c, (list, tuple)) and len(c) >= 3:
+        return all(isinstance(v, (int, float)) and 0 <= v <= 255 for v in c[:3])
+    return isinstance(c, str) and bool(_HEX.match(c.strip()))
+
+
 def resolve(palette):
-    """Accept a preset name, a list of hex colors, or a comma/space separated string."""
+    """Accept a preset name, a list of colors, or a comma/space separated string. Invalid entries are dropped."""
     if palette is None:
         return list(PALETTES[DEFAULT_PALETTE])
     if isinstance(palette, dict) and "colors" in palette:
-        return list(palette["colors"])
+        palette = palette["colors"]
     if isinstance(palette, (list, tuple)):
-        cols = [rgb_to_hex(hex_to_rgb(c)) for c in palette if c]
-        return cols or list(PALETTES[DEFAULT_PALETTE])
+        if len(palette) == 1 and isinstance(palette[0], str) and palette[0].strip().lower() in PALETTES:
+            return list(PALETTES[palette[0].strip().lower()])
+        cols = [rgb_to_hex(c) if isinstance(c, (list, tuple)) else rgb_to_hex(hex_to_rgb(c)) for c in palette if valid_color(c)]
+        return list(dict.fromkeys(cols)) if len(cols) >= 3 else list(PALETTES[DEFAULT_PALETTE])
     s = str(palette).strip()
     if s.lower() in PALETTES:
         return list(PALETTES[s.lower()])
-    parts = [p for p in s.replace(",", " ").replace(";", " ").split() if p]
-    cols = [rgb_to_hex(hex_to_rgb(p)) for p in parts if len(p.lstrip("#")) in (3, 6)]
-    return cols or list(PALETTES[DEFAULT_PALETTE])
+    cols = [rgb_to_hex(hex_to_rgb(p)) for p in s.replace(",", " ").replace(";", " ").split() if valid_color(p)]
+    return list(dict.fromkeys(cols)) if len(cols) >= 3 else list(PALETTES[DEFAULT_PALETTE])
 
 
 def by_luma(palette):

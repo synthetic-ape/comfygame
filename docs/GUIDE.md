@@ -23,9 +23,9 @@ Genres: **platformer** (jump, stomp, secrets, boss arena), **arena** (survive wa
 
 ## 2. Install
 
-1. `cd ComfyUI/custom_nodes` then `git clone <repo-url> comfygame` (or ComfyUI-Manager → *Install via Git URL*).
+1. `cd ComfyUI/custom_nodes` then `git clone https://github.com/synthetic-ape/comfygame comfygame` (or ComfyUI-Manager → *Install via Git URL*).
 2. Restart ComfyUI. No pip installs are needed.
-3. A gamepad icon labelled **ComfyGame** appears in the left sidebar.
+3. A gamepad icon labelled **Games** appears in the left sidebar (the ComfyGame panel).
 
 Optional extras:
 - **AI art**: Z-Image Turbo + BiRefNet (ComfyUI offers the downloads when you open template 05). Any image model works.
@@ -35,7 +35,7 @@ Optional extras:
 
 ## 3. Your first game in two minutes
 
-1. Sidebar → **ComfyGame** → **Create** → **Quick platformer**.
+1. Sidebar → **Games** → **Create** → **Quick platformer**.
 2. Press **Run** (Ctrl+Enter). The build takes about 3 seconds.
 3. Click the game in the **Build & Play Game** node. Arrows/WASD move, Space jumps, Esc pauses.
 4. Change **seed** and run again for a new world. Try **genre: dungeon** or **theme: candy**.

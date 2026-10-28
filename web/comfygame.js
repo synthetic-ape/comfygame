@@ -408,7 +408,7 @@ app.registerExtension({
     } catch (e) { /* cosmetic only */ }
     try {
       app.extensionManager.registerSidebarTab({
-        id: "comfygame", icon: "mdi mdi-gamepad-variant-outline", title: "ComfyGame", tooltip: "ComfyGame: play, library, templates, AI studio", type: "custom",
+        id: "comfygame", icon: "mdi mdi-gamepad-variant-outline", title: "Games", tooltip: "ComfyGame: play, library, templates, AI studio", type: "custom",
         render: (container) => renderPanel(container),
       });
     } catch (e) { console.warn("[ComfyGame] sidebar unavailable", e); }
