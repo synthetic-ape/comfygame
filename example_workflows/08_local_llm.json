@@ -265,18 +265,18 @@
     "comfy_local",
     "",
     "low",
-    "arena",
+    "auto",
     false,
-    8
+    0
    ],
    "widgets_values_named": {
     "idea": "A penguin chef slides across icy kitchens fighting angry vegetables",
     "provider": "comfy_local",
     "model": "",
     "effort": "low",
-    "genre": "arena",
+    "genre": "auto",
     "custom_mechanic_code": false,
-    "seed": 8
+    "seed": 0
    },
    "color": "#7a5a14",
    "bgcolor": "#5e4510"

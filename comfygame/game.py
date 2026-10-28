@@ -138,9 +138,10 @@ def complete(game, progress=None):
 
     # actors
     if not g.get("player"):
-        g["player"] = make_actor("Hero", d["hero"])
+        g["player"] = make_actor("Hero", d["hero"], hp=3 if genre == "platformer" else 5)
     p = g["player"]
-    p.setdefault("hp", 3 if genre == "platformer" else 5)
+    if not p.get("hp"):
+        p["hp"] = 3 if genre == "platformer" else 5
     p.setdefault("abilities", list(d["abilities"]))
     if not p.get("abilities") and genre == "platformer":
         p["abilities"] = list(d["abilities"])

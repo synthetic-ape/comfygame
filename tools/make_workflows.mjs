@@ -243,13 +243,14 @@ const PAGE_BUILD = async (spec) => {
 const b = await launch({ size: "1800x1000" });
 let failed = 0;
 try {
-  await b.goto(BASE);
-  await new Promise((r) => setTimeout(r, 9000));
   fs.mkdirSync(path.join(ROOT, "example_workflows"), { recursive: true });
   fs.mkdirSync(path.join(ROOT, "docs", "img"), { recursive: true });
   for (const [name, spec] of Object.entries(WORKFLOWS)) {
     if (ONLY && name !== ONLY) continue;
     try {
+      // fresh page per workflow: the frontend keeps text-widget values per node id across graph.clear()
+      await b.goto(BASE);
+      await new Promise((r) => setTimeout(r, 8000));
       const wf = await b.eval(`(${PAGE_BUILD.toString()})(${JSON.stringify(spec)})`);
       fs.writeFileSync(path.join(ROOT, "example_workflows", name + ".json"), JSON.stringify(wf, null, 1));
       await new Promise((r) => setTimeout(r, 800));

@@ -533,7 +533,7 @@
     "medium",
     "platformer",
     false,
-    11
+    0
    ],
    "widgets_values_named": {
     "idea": "A tiny robot gardener defends a greenhouse from mutant bugs",
@@ -542,7 +542,7 @@
     "effort": "medium",
     "genre": "platformer",
     "custom_mechanic_code": false,
-    "seed": 11
+    "seed": 0
    },
    "color": "#7a5a14",
    "bgcolor": "#5e4510"

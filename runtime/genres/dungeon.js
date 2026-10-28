@@ -53,7 +53,7 @@
     prerender() {
       const g = this.game, T = g.theme, tiles = g.tiles;
       const c = g.gfx.makeCanvas(this.pw, this.ph), ctx = c.getContext("2d");
-      const h = (x, y) => { let v = (x * 73856093) ^ (y * 19349663); v = (v ^ (v >>> 13)) * 1274126177; return ((v ^ (v >>> 16)) >>> 0) / 4294967296; };
+      const h = (x, y) => { let v = Math.imul(x, 73856093) ^ Math.imul(y, 19349663); v = Math.imul(v ^ (v >>> 13), 1274126177); return ((v ^ (v >>> 16)) >>> 0) / 4294967296; };
       const wall = (x, y) => x < 0 || y < 0 || x >= this.w || y >= this.h || this.grid[y][x] === "#" || this.grid[y][x] === "t";
       const open = (x, y) => x >= 0 && y >= 0 && x < this.w && y < this.h && this.grid[y][x] !== " " && !wall(x, y);
       for (let y = 0; y < this.h; y++) for (let x = 0; x < this.w; x++) {

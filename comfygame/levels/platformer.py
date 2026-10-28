@@ -28,6 +28,8 @@ class Builder:
             self.g[y][x] = c
 
     def column(self, x, top):
+        if not 0 <= x < self.w:
+            return
         for y in range(max(0, top), H):
             self.g[y][x] = "#"
 
@@ -87,24 +89,28 @@ class Builder:
         self.flat(2, coins=False)
 
     def platform_pit(self, n=None):
+        """A pit crossed on floating one-way platforms; every hop is at most 3 tiles."""
         n = max(5, min(n or self.rng.randint(6, 10), 11))
         start = self.x
-        self.x += n
+        end = start + n
+        self.x = end
         y = self.ground - self.rng.randint(1, 3)
-        px = start + 1
-        while px < start + n - 2:
-            w = self.rng.randint(2, 4)
+        cur = start - 1
+        while end - cur > 4:
+            px = cur + self.rng.randint(2, 3)
+            w = min(self.rng.randint(2, 3), max(1, end - 1 - px))
             for i in range(w):
                 self.set(px + i, y, "=")
                 if self.rng.random() < 0.5:
                     self.set(px + i, y - 1, "o")
-            if self.rng.random() < 0.25 * self.diff:
+            if w >= 2 and self.rng.random() < 0.25 * self.diff:
                 self.set(px + w // 2, y - 1, self.enemy_letter(False))
-            px += w + self.rng.randint(1, 3)
-            y = max(5, min(self.ground, y + self.rng.choice([-1, 0, 1])))
+            cur = px + w - 1
+            y = max(5, min(self.ground - 1, y + self.rng.choice([-1, 0, 1])))
         if self.liquid and self.rng.random() < 0.5:
-            for x in range(start, start + n):
+            for x in range(start, end):
                 self.set(x, H - 1, "L", True)
+        self.flat(2, coins=False)
 
     def blocks(self):
         self.flat(3, coins=False)
@@ -142,10 +148,11 @@ class Builder:
         self.flat(3, enemies=1)
 
     def moving(self):
-        n = self.rng.randint(7, 10)
+        kind_pre = self.rng.random()
+        n = self.rng.randint(7, 10) if kind_pre < 0.65 else self.rng.randint(6, 8)
         start = self.x
         self.x += n
-        kind = "M" if self.rng.random() < 0.65 else "V"
+        kind = "M" if kind_pre < 0.65 else "V"
         mx = start + n // 2
         self.set(mx, self.ground - (1 if kind == "M" else 3), kind, True)
         for i in range(1, n - 1, 2):
@@ -153,6 +160,7 @@ class Builder:
         if self.liquid:
             for x in range(start, start + n):
                 self.set(x, H - 1, "L", True)
+        self.flat(2, coins=False)
 
     def spring_wall(self):
         self.flat(3, coins=False)
@@ -173,6 +181,7 @@ class Builder:
             self.set(self.x, y, "X", True)
             self.set(self.x, y - 2, "o")
             self.x += 1
+        self.flat(2, coins=False)
 
     def tunnel(self):
         n = self.rng.randint(8, 14)
@@ -226,7 +235,7 @@ def generate(seed=0, index=0, total=5, length=6, difficulty=1.0, enemies=None, b
     if "crumble" in features:
         menu.append(("crumble_bridge", 0.6 * ramp))
     menu.append(("tunnel", 0.7))
-    end = width - (40 if boss else 12)
+    end = width - (44 if boss else 24)
     checkpoint_done = False
     last = None
     b.flat(rng.randint(4, 8), enemies=1 if index > 0 else 0)  # a safe warm-up stretch before the first hazard

@@ -104,7 +104,7 @@
       const focus = inp.down("c");
       const sp = (focus ? 75 : 160) * (g.spec.player.speed || 1);
       p.vx = damp(p.vx, ax.x * sp, 18, dt); p.vy = damp(p.vy, ax.y * sp, 18, dt);
-      p.x = clamp(p.x + p.vx * dt, 10, this.W - 14); p.y = clamp(p.y + p.vy * dt, 12, this.H - 10);
+      p.x = clamp(p.x + p.vx * dt, 10, this.W - 14); p.y = clamp(p.y + p.vy * dt, 24, this.H - 10);
       p.tilt = damp(p.tilt, ax.y * 0.25, 10, dt);
       p.focus = focus;
       // autofire

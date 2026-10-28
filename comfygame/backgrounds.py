@@ -259,7 +259,7 @@ def generate(theme="forest", palette=None, seed=0, w=512, h=270, lock_palette=Tr
             y = cy + (t - r * 1.7) * 0.25
             if (x - cx) ** 2 + (y - cy) ** 2 > r * r * 0.85 or y > cy:
                 L.put(x, int(y), P.mix(r3[2], "#ffffff", 0.3))
-        add(L.img, 0.05, 2)
+        layers.append({"img": L.img, "parallax": 0.05, "scroll": 2, "nosnap": True})
     if "islands" in feats:
         L = Layer(w, h)
         for _ in range(5):
@@ -384,7 +384,8 @@ def generate(theme="forest", palette=None, seed=0, w=512, h=270, lock_palette=Tr
         add(L.img, 0.7, 10)
     if pal and lock_palette:
         for L in layers[1:]:
-            L["img"] = px.snap(L["img"], pal + [P.mix(far_c, "#ffffff", 0.0)] + sky_stops)
+            if not L.pop("nosnap", False):
+                L["img"] = px.snap(L["img"], pal + [far_c] + sky_stops)
     return {"theme": theme, "layers": layers, "w": w, "h": h, "dark": theme in ("cave", "underwater")}
 
 
